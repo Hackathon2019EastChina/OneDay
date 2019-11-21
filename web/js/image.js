@@ -1,6 +1,7 @@
 let files_saver = [];
 
 function UploadHandle(fileDOM) {
+    files_saver = [];
     let imageType = /^image\//;
 
     if(!window.FileReader){
