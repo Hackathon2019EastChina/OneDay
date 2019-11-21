@@ -10,12 +10,15 @@
 
 # coding: utf-8
 import eel
-
+import json
 from base64 import b64decode
 import numpy as np
 import cv2
+import sqlite3
 
 dirname = '../web/img/'
+
+eel.init('../web')
 
 @eel.expose
 def full_view(filename1, filename2):
@@ -65,9 +68,29 @@ def get_origin_img(filename, img):
     print('图片' + filename + '已保存')
 
 
+@eel.expose
+def write_db(writeData):
+    conn = sqlite3.connect("../db/test.db")
+    # 创建游标
+    c = conn.cursor()
+    # 插入label
+    c.execute("INSERT INTO tag (user_name,label) VALUES (?,?)",
+              (writeData["userName"], str(writeData["label"])))
+    # 提交事务
+    conn.commit()
+    # 关闭连接
+    conn.close()
+
+@eel.expose
+def read_db(userName):
+    conn = sqlite3.connect("../db/test.db")
+    # 创建游标
+    c = conn.cursor()
+    # 读取数据
+    c.execute("SELECT label FROM tag WHERE user_name = \'" + userName + "\'")
+    result = c.fetchall()
+    c.close()
+    return result
 
 if __name__ == '__main__':
-
-    eel.init('../web')
-
     eel.start('homepage.html')
