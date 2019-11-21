@@ -15,6 +15,8 @@
     var _sprites = [];
     var _lables = [];
     var _count1 = 1;
+    var _move_step = 0.05;		//手机版：竖屏移动步长为0.05;横屏为0.1
+
 
     var options = {
         container: 'panoramaConianer',//容器
@@ -51,12 +53,15 @@
             if(_count1 == 1){
             _container.addEventListener('mousedown', onDocumentMouseDown, false);
             _container.addEventListener('mousemove', onDocumentMouseMove, false);
+			_container.addEventListener('mouseup', onDocumentMouseUp, false);
+			_container.addEventListener('touchstart', onDocumentTouchStart, false);
+			_container.addEventListener('touchmove', onDocumentTouchMove, false);
+			_container.addEventListener('touchend', onDocumentTouchEnd, false);
 
             /************************/
             _container.addEventListener('dblclick', onDocumentMouseDblclick, false);
             /************************/
 
-            _container.addEventListener('mouseup', onDocumentMouseUp, false);
             _container.addEventListener('mousewheel', function (e) {
                 var then = that;
                 onDocumentMouseWheel(e, then.def.minFocalLength, then.def.maxFocalLength);
@@ -125,6 +130,7 @@
     }
 
     function onDocumentMouseDown(event) {
+		// console.log('mouse down...');
         event.preventDefault();
         _isUserInteracting = true;
         _onPointerDownPointerX = event.clientX;
@@ -134,11 +140,50 @@
     }
 
     function onDocumentMouseMove(event) {
+		// console.log('mouse moving...');
         if (_isUserInteracting) {
             _lon = ( _onPointerDownPointerX - event.clientX ) * 0.1 + _onPointerDownLon;
             _lat = ( event.clientY - _onPointerDownPointerY ) * 0.1 + _onPointerDownLat;
         }
     }
+
+	function onDocumentMouseUp() {
+		// console.log('mouse up...');
+	    _isUserInteracting = false;
+	}
+
+	function onDocumentTouchStart(event){
+		console.log('touch start...');
+		_isUserInteracting = true;
+
+		var touch = event.touches[0]; //获取第一个触点
+		var x = Number(touch.pageX); //页面触点X坐标
+		var y = Number(touch.pageY); //页面触点Y坐标
+
+		_onPointerDownPointerX = x;
+		_onPointerDownPointerY = y;
+		_onPointerDownLon = _lon;
+		_onPointerDownLat = _lat;
+	}
+
+	function onDocumentTouchMove(event) {
+		console.log('touch moving...');
+
+		var touch = event.touches[0]; //获取第一个触点
+		var x = Number(touch.pageX); //页面触点X坐标
+		var y = Number(touch.pageY); //页面触点Y坐标
+
+		if (_isUserInteracting) {
+		    _lon = ( _onPointerDownPointerX - x ) * _move_step + _onPointerDownLon;
+		    _lat = ( y - _onPointerDownPointerY ) * _move_step + _onPointerDownLat;
+		}
+	}
+
+	function onDocumentTouchEnd(event){
+		console.log('touch end...');
+		_isUserInteracting = false;
+	}
+
 
     /************************/
     function onDocumentMouseDblclick(event) {
@@ -180,9 +225,7 @@
     }
     /************************/
 
-    function onDocumentMouseUp() {
-        _isUserInteracting = false;
-    }
+
 
     function onDocumentMouseClick(event) {
         _mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
