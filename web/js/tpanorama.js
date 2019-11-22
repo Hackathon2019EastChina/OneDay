@@ -7,7 +7,7 @@
     var _raycaster;
     var _container;
     var _isUserInteracting = false;
-    var _lon = 0, _lat = 0;
+    var _lon = 180, _lat = 0;       //初始化转动180度，避免出现拼接漏洞
     var _onPointerDownLon = 0, _onPointerDownLat = 0;
     var _onPointerDownPointerX = 0, _onPointerDownPointerY = 0;
     var _mouse = new THREE.Vector2();
