@@ -21,8 +21,8 @@ function UploadHandle(fileDOM) {
 function SendImage() {
     let imageType = /^image\//;
 
-    let user_temp = "doubleZ";
-    let date_temp = "2/6/2019";   // 2/6/2019
+    let user_temp = "doubleZ";"2/6/2019"
+    let date_temp = ;   // 2/6/2019
     let data_arr = date_temp.split("/");
 
     //处理用户名字段
