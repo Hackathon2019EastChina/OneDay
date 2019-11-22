@@ -11484,7 +11484,7 @@
 
 			var scope = this;
 
-			var indices = geometry.index !== null ? geometry.index.array : undefined;
+			var indices = geometry.panorama !== null ? geometry.panorama.array : undefined;
 			var attributes = geometry.attributes;
 
 			var positions = attributes.position.array;
@@ -13440,7 +13440,7 @@
 
 		getIndex: function () {
 
-			return this.index;
+			return this.panorama;
 
 		},
 
@@ -13470,7 +13470,7 @@
 
 			}
 
-			if ( name === 'index' ) {
+			if ( name === 'panorama.html' ) {
 
 				console.warn( 'THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.' );
 				this.setIndex( attribute );
@@ -14049,7 +14049,7 @@
 
 		computeVertexNormals: function () {
 
-			var index = this.index;
+			var index = this.panorama;
 			var attributes = this.attributes;
 			var groups = this.groups;
 
@@ -14227,7 +14227,7 @@
 
 		toNonIndexed: function () {
 
-			if ( this.index === null ) {
+			if ( this.panorama === null ) {
 
 				console.warn( 'THREE.BufferGeometry.toNonIndexed(): Geometry is already non-indexed.' );
 				return this;
@@ -14236,7 +14236,7 @@
 
 			var geometry2 = new BufferGeometry();
 
-			var indices = this.index.array;
+			var indices = this.panorama.array;
 			var attributes = this.attributes;
 
 			for ( var name in attributes ) {
@@ -14302,7 +14302,7 @@
 
 			data.data = { attributes: {} };
 
-			var index = this.index;
+			var index = this.panorama;
 
 			if ( index !== null ) {
 
@@ -14404,7 +14404,7 @@
 
 			// index
 
-			var index = source.index;
+			var index = source.panorama;
 
 			if ( index !== null ) {
 
@@ -16642,9 +16642,9 @@
 			var geometry = event.target;
 			var buffergeometry = geometries[ geometry.id ];
 
-			if ( buffergeometry.index !== null ) {
+			if ( buffergeometry.panorama !== null ) {
 
-				attributes.remove( buffergeometry.index );
+				attributes.remove( buffergeometry.panorama );
 
 			}
 
@@ -16718,7 +16718,7 @@
 
 		function update( geometry ) {
 
-			var index = geometry.index;
+			var index = geometry.panorama;
 			var geometryAttributes = geometry.attributes;
 
 			if ( index !== null ) {
@@ -16759,7 +16759,7 @@
 
 			var indices = [];
 
-			var geometryIndex = geometry.index;
+			var geometryIndex = geometry.panorama;
 			var geometryAttributes = geometry.attributes;
 
 			// console.time( 'wireframe' );
@@ -21035,7 +21035,7 @@
 
 			//
 
-			var index = geometry.index;
+			var index = geometry.panorama;
 			var position = geometry.attributes.position;
 			var rangeFactor = 1;
 
@@ -24655,12 +24655,12 @@
 
 			vertex = new Vector3();
 
-			if ( geometry.index !== null ) {
+			if ( geometry.panorama !== null ) {
 
 				// indexed BufferGeometry
 
 				position = geometry.attributes.position;
-				indices = geometry.index;
+				indices = geometry.panorama;
 				groups = geometry.groups;
 
 				if ( groups.length === 0 ) {
@@ -26797,7 +26797,7 @@
 		var uvAttribute = this.getAttribute( "uv" );
 		var uvArray = uvAttribute ? Array.prototype.slice.call( uvAttribute.array ) : [];
 
-		var IndexAttribute = this.index;
+		var IndexAttribute = this.panorama;
 		var indicesArray = IndexAttribute ? Array.prototype.slice.call( IndexAttribute.array ) : [];
 
 		return {
@@ -32766,7 +32766,7 @@
 
 			var geometry = new BufferGeometry();
 
-			var index = json.data.index;
+			var index = json.data.panorama;
 
 			if ( index !== undefined ) {
 
@@ -39640,7 +39640,7 @@
 
 		copy: function ( source ) {
 
-			var index = source.index;
+			var index = source.panorama;
 
 			if ( index !== null ) {
 

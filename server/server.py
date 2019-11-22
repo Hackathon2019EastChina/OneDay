@@ -51,8 +51,8 @@ def full_view(filename1, filename2):
     M = np.dot(shft, H[0])  # 获取左边图像到右边图像的投影映射关系
     dst_corners = cv2.warpPerspective(leftgray, M, (w * 2, h))  # 透视变换，新图像可容纳完整的两幅图
     # dst_corners[0:h, 0:w] = leftgray
-    # dst_corners[0:h, w:w * 2] = rightgray  # 将第二幅图放在右侧
-    # dst_corners = dst_corners[:, 100:]
+    dst_corners[0:h, w:w * 2] = rightgray  # 将第二幅图放在右侧
+    dst_corners = dst_corners[:, 100:]
 
     cv2.imwrite(dirname + 'tiled.jpg', dst_corners)
 
@@ -94,5 +94,5 @@ def read_db(userName):
     return result
 
 if __name__ == '__main__':
-    # eel.start('homepage.html')
-    full_view('test1.jpeg', 'test2.jpeg')
+    eel.start('index.html')
+    # full_view('test1.jpeg', 'test2.jpeg')
