@@ -9623,7 +9623,7 @@
 		function remove( attribute ) {
 
 			if ( attribute.isInterleavedBufferAttribute ) attribute = attribute.data;
-			
+
 			var data = buffers[ attribute.uuid ];
 
 			if ( data ) {
@@ -10421,7 +10421,7 @@
 			}
 
 			return this;
-			
+
 		},
 
 		getObjectById: function ( id ) {
@@ -11484,7 +11484,7 @@
 
 			var scope = this;
 
-			var indices = geometry.panorama !== null ? geometry.panorama.array : undefined;
+			var indices = geometry.index !== null ? geometry.index.array : undefined;
 			var attributes = geometry.attributes;
 
 			var positions = attributes.position.array;
@@ -13440,7 +13440,7 @@
 
 		getIndex: function () {
 
-			return this.panorama;
+			return this.index;
 
 		},
 
@@ -13470,7 +13470,7 @@
 
 			}
 
-			if ( name === 'panorama.html' ) {
+			if ( name === 'index' ) {
 
 				console.warn( 'THREE.BufferGeometry.addAttribute: Use .setIndex() for index attribute.' );
 				this.setIndex( attribute );
@@ -14049,7 +14049,7 @@
 
 		computeVertexNormals: function () {
 
-			var index = this.panorama;
+			var index = this.index;
 			var attributes = this.attributes;
 			var groups = this.groups;
 
@@ -14227,7 +14227,7 @@
 
 		toNonIndexed: function () {
 
-			if ( this.panorama === null ) {
+			if ( this.index === null ) {
 
 				console.warn( 'THREE.BufferGeometry.toNonIndexed(): Geometry is already non-indexed.' );
 				return this;
@@ -14236,7 +14236,7 @@
 
 			var geometry2 = new BufferGeometry();
 
-			var indices = this.panorama.array;
+			var indices = this.index.array;
 			var attributes = this.attributes;
 
 			for ( var name in attributes ) {
@@ -14302,7 +14302,7 @@
 
 			data.data = { attributes: {} };
 
-			var index = this.panorama;
+			var index = this.index;
 
 			if ( index !== null ) {
 
@@ -14404,7 +14404,7 @@
 
 			// index
 
-			var index = source.panorama;
+			var index = source.index;
 
 			if ( index !== null ) {
 
@@ -16642,9 +16642,9 @@
 			var geometry = event.target;
 			var buffergeometry = geometries[ geometry.id ];
 
-			if ( buffergeometry.panorama !== null ) {
+			if ( buffergeometry.index !== null ) {
 
-				attributes.remove( buffergeometry.panorama );
+				attributes.remove( buffergeometry.index );
 
 			}
 
@@ -16718,7 +16718,7 @@
 
 		function update( geometry ) {
 
-			var index = geometry.panorama;
+			var index = geometry.index;
 			var geometryAttributes = geometry.attributes;
 
 			if ( index !== null ) {
@@ -16759,7 +16759,7 @@
 
 			var indices = [];
 
-			var geometryIndex = geometry.panorama;
+			var geometryIndex = geometry.index;
 			var geometryAttributes = geometry.attributes;
 
 			// console.time( 'wireframe' );
@@ -20286,7 +20286,7 @@
 			}
 
 			scope.numPlanes = nPlanes;
-			
+
 			return dstArray;
 
 		}
@@ -21035,7 +21035,7 @@
 
 			//
 
-			var index = geometry.panorama;
+			var index = geometry.index;
 			var position = geometry.attributes.position;
 			var rangeFactor = 1;
 
@@ -24655,12 +24655,12 @@
 
 			vertex = new Vector3();
 
-			if ( geometry.panorama !== null ) {
+			if ( geometry.index !== null ) {
 
 				// indexed BufferGeometry
 
 				position = geometry.attributes.position;
-				indices = geometry.panorama;
+				indices = geometry.index;
 				groups = geometry.groups;
 
 				if ( groups.length === 0 ) {
@@ -26797,7 +26797,7 @@
 		var uvAttribute = this.getAttribute( "uv" );
 		var uvArray = uvAttribute ? Array.prototype.slice.call( uvAttribute.array ) : [];
 
-		var IndexAttribute = this.panorama;
+		var IndexAttribute = this.index;
 		var indicesArray = IndexAttribute ? Array.prototype.slice.call( IndexAttribute.array ) : [];
 
 		return {
@@ -32766,7 +32766,7 @@
 
 			var geometry = new BufferGeometry();
 
-			var index = json.data.panorama;
+			var index = json.data.index;
 
 			if ( index !== undefined ) {
 
@@ -36753,7 +36753,7 @@
 			return this.gain.gain.value;
 
 		},
-		
+
 		setVolume: function ( value ) {
 
 			this.gain.gain.value = value;
@@ -39640,7 +39640,7 @@
 
 		copy: function ( source ) {
 
-			var index = source.panorama;
+			var index = source.index;
 
 			if ( index !== null ) {
 
@@ -42530,7 +42530,7 @@
 	SkeletonHelper.prototype.update = function () {
 
 		console.error( 'THREE.SkeletonHelper: update() no longer needs to be called.' );
-		
+
 	};
 
 	function WireframeHelper( object, hex ) {
