@@ -1,7 +1,9 @@
 let opt;
 let href = window.location.href;
-let index = href.indexOf("imgsrc=");
-let imgsrc = href.substr(index + 7);
+let user_index = href.indexOf("user=");
+let date_index = href.indexOf("&date=");
+let user_info = href.substr(user_index+5, date_index);
+let date_info = href.substr(date_index+6);
 
 window.onload = function () {
     loadPanorama(imgsrc);
@@ -9,6 +11,16 @@ window.onload = function () {
 
 
 async function loadPanorama(imgsrc) {
+    let UserDate = {
+        user: user_info,
+        date: date_info
+    };
+
+
+    /*TODO 这里调后端返回 imgsrc 和 labels*/
+    //eel.你的函数(UserDate);
+
+
     //读取数据
     var readData = await readDB("tj");
     //console.log(readData);
@@ -19,7 +31,7 @@ async function loadPanorama(imgsrc) {
     }
     //console.log(readLables);
 
-    let url_str = 'img/' + imgsrc;
+    // let url_str = 'img/' + imgsrc;
     //console.log(url_str);
 
     opt = {

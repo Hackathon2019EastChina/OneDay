@@ -54,6 +54,7 @@ function SendImage() {
             let UserDateImage = {
                 user: user_info,           //
                 date: date_info,            //2019-01-01
+                description: desp_info,
                 imgname: file.name,
                 imgsrc: img_base64
             };
