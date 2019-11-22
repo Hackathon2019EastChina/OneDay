@@ -22,22 +22,17 @@ async function loadPanorama(imgsrc) {
 
 
     //读取数据
-    var readData = await readDB("tj");
-    //console.log(readData);
-    var readLables=[];
-    for(lable in readData){
-        //console.log(readData[lable]);
-        readLables.push(eval('(' + readData[lable]+ ')'));
+    var ImgsrcLabels = await readDB("tj");
+    let url_str = ImgsrcLabels.imgsrc;
+    var labels_arr = [];
+    for(let lable in ImgsrcLabels.labels){
+        labels_arr.push(label);
     }
-    //console.log(readLables);
-
-    // let url_str = 'img/' + imgsrc;
-    //console.log(url_str);
 
     opt = {
         container:'panoramaConianer',//容器
         url:url_str,            //'../img/tiled.jpg',
-        lables: readLables,
+        lables: labels_arr,
         //[
             //{position:{lon:-72.00,lat:9.00},logoUrl:'',text:'蓝窗户'},
             // {position:{lon:114.12,lat:69.48},logoUrl:'',text:'一片云彩'},

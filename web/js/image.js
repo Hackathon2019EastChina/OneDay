@@ -15,14 +15,15 @@ function UploadHandle(fileDOM) {
 /**
  * user: doubleZ
  * date: 2019-01-01
+ * descriptioin: this is a description
  * imgname: test1.png
  * imgsrc: [Base64编码的图片]
  */
 function SendImage() {
     let imageType = /^image\//;
 
-    let user_temp = "doubleZ";"2/6/2019"
-    let date_temp = ;   // 2/6/2019
+    let user_temp = "doubleZ";
+    let date_temp = "2/6/2019";   // 2/6/2019
     let data_arr = date_temp.split("/");
 
     //处理用户名字段
@@ -36,6 +37,10 @@ function SendImage() {
         data_arr[1] = "0" + data_arr[1];
     }
     let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
+
+    /*TODO*/
+    //处理描述字段
+    // let desp_info = document.getElementById(...);
 
 
     for(let i=0;i<fileDOM.files.length;++i){
@@ -59,8 +64,8 @@ function SendImage() {
                 imgsrc: img_base64
             };
 
-            eel.你的函数(UserDateImage)
-            // eel.get_origin_img(file.name, img_base64);
+            /*TODO 这里调后端返回 imgsrc*/
+            //eel.你的函数(UserDateImage)
         };
 
         files_saver.push(file.name);
