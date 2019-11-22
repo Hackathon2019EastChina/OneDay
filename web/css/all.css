@@ -190,7 +190,7 @@ a.scene-item:link{
     padding-left: 5px;
     color: rgb(205, 209, 204);
     border-left: 1.5px solid rgb(205, 209, 204);
-    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('/files/00.jpg') no-repeat center;
+    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('../img/test2.jpeg') no-repeat center;
     /* background-image: url('/files/00.jpg');
     background-color: rgba(172, 190, 158, 0.9); */
 }
@@ -204,7 +204,7 @@ a.scene-item:visited{
     padding-left: 5px;
     color: rgb(205, 209, 204);
     border-left: 1.5px solid rgb(205, 209, 204);
-    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('../img/test1.jpeg') no-repeat center;
+    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('../img/test2.jpeg') no-repeat center;
     /* background-image: url('/files/00.jpg');
     background-color: rgba(172, 190, 158, 0.9); */
 }
