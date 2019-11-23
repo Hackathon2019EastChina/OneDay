@@ -36,14 +36,6 @@ def mkdir(newpath):
         print
         "---  There is this folder!  ---"
 
-'''
-设置拼接后的全景图名字
-'''
-def get_full_view_result_name(filename1, filename2):
-    filename1_arr = filename1.split('.')
-    filename2_arr = filename2.split('.')
-    return filename1_arr[0] + '_' + filename2_arr[0] + '.' + filename1_arr[1]
-
 
 @eel.expose
 def full_view(filename1, filename2):
@@ -83,26 +75,16 @@ def full_view(filename1, filename2):
 
     # 删除空白列
     sum_col = np.sum(np.sum(dst_corners, axis=0), axis=1)
-
-    result_img = np.zeros(shape=(dst_corners.shape[0], 1, 3))
-
     for i in range(len(sum_col)):
         if sum_col[i] != 0:
-            result_img = np.hstack([result_img, dst_corners[:,i:i+1,:]])
-
-    result_img = result_img[:, 1:]
-
-
+            dst_corners = dst_corners[:, i:]
+            break
 
     # cv2.imshow('dest', dst_corners)
-    result_name = get_full_view_result_name(filename1, filename2)
-
-    cv2.imwrite(dirname + result_name, result_img)
+    cv2.imwrite(dirname + 'tiled.jpg', dst_corners)
 
     cv2.waitKey()
     cv2.destroyAllWindows()
-
-    return result_name
 
 
 @eel.expose
@@ -204,33 +186,9 @@ def login(UserPwd):
         state['state'] = True
         return state
 
-'''
-循环拼接目录中的文件，最终返回文件名
-'''
-def get_full_view_image(filenames):
-
-    n = len(filenames)
-
-    if n == 0:
-        return filenames[0]
-    else:
-        result_name = full_view(filenames[0], filenames[1])
-        for i in range(n - 2):
-            result_name = full_view(result_name, filenames[i+2])
-
-    return result_name
-
 
 if __name__ == '__main__':
-    # eel.start('homepage.html')
+    eel.start('homepage.html')
     # full_view('test1.jpeg', 'test2.jpeg')
     # full_view('true1.jpg', 'true2.jpg')
     # full_view('room1.jpg', 'room2.jpg')
-    filenames = ['this1.jpeg', 'this2.jpeg', 'this3.jpeg']
-    result_name = get_full_view_image(filenames)
-
-
-
-
-
-
