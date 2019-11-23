@@ -82,10 +82,10 @@ class CALENDAR {
 //            date: date_info
 //        };
         //Todo: 根据UserDate调用后端，返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp----------------
-        /*调用后端函数 let eventTemp = await readPanorama(UserDate); */
+        let eventTemp = await readPanorama(UserDate);
         //let eventTemp = this.eventList[calendar.active.formatted]
 
-        let eventTemp = { description:'yes', path:'../img/test1.jpeg' };
+        //let eventTemp = { description:'yes', path:'../img/test1.jpeg' };
         if(eventTemp.description){   // 如果eventList中有内容，内容覆盖
             eventList = [eventTemp];
             judge = true;
@@ -107,7 +107,7 @@ class CALENDAR {
                 //Todo: href="/"将被替代为全景图片的路径
                 console.log(item.path);
                 eventTemplate = `<li><a style="background: linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(\'${item.path}\') no-repeat center;" id="scene" class="scene-item" href="/">${item.description}</a></li>`;
-                //Todo: css中设置scene-item的background的url为item.path
+                //css中设置scene-item的background的url为item.path
 //                document.getElementById('scene').style['background'] = 'linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(' + item.path + ') no-repeat center;';
             });
         } else {
