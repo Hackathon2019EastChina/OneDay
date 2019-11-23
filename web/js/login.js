@@ -25,6 +25,8 @@ accountSignUpButton.addEventListener('click', () => {
     let password = signUpPassword.value;
     console.log(name+" " + password);
     //Todo: 将[name, password]传给后端，记录用户名称和密码
+    let userpassword = "{username:"+name+",password:"+password+"}";
+    receiveSignUp(userpassword);
     const hiddenText = document.getElementById('success-sign-up');
     hiddenText.className = 'show';
     setTimeout("window.location.reload()",1000);

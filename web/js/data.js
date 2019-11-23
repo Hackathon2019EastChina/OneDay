@@ -12,4 +12,7 @@ function addPanorama(UserDataImgnameImgsrcDesc){
     eel.add_panorama(UserDataImgnameImgsrcDesc)
 }
 
+function receiveSignUp(userpassword){
+    eel.register(userpassword);
+}
 

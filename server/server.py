@@ -187,7 +187,7 @@ def login(UserPwd):
 
 
 if __name__ == '__main__':
-    eel.start('calendar.html')
+    eel.start('login.html')
 
 
 
