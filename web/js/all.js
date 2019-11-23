@@ -16,11 +16,11 @@ class CALENDAR {
             eventList: this.getFirstElementInsideIdByClassName('current-day-events-list'),
             eventField: this.getFirstElementInsideIdByClassName('add-event-day-field'),
             eventAddBtn: this.getFirstElementInsideIdByClassName('add-event-day-field-btn'),
-            eventDeleteBtn: this.getFirstElementInsideIdByClassName('delete-event-day-field-btn'), // ------!!!
+//            eventDeleteBtn: this.getFirstElementInsideIdByClassName('delete-event-day-field-btn'), // ------!!!
             currentDay: this.getFirstElementInsideIdByClassName('calendar-left-side-day'),
             currentWeekDay: this.getFirstElementInsideIdByClassName('calendar-left-side-day-of-week'),
             prevYear: this.getFirstElementInsideIdByClassName('calendar-change-year-slider-prev'),
-            nextYear: this.getFirstElementInsideIdByClassName('calendar-change-year-slider-next')
+            nextYear: this.getFirstElementInsideIdByClassName('calendar-change-year-slider-next'),
         };  // html blocks
 
         // 这一项要被删掉
@@ -55,17 +55,42 @@ class CALENDAR {
     }
 
     // add the Events in the left block (will be changed into images)   !!!
-    drawEvents() {
+    async drawEvents() {
         let calendar = this.getCalendar();
-        let judge = false;
+        let judge = true;  //false;
         let eventList = ['There is not any scenes.'];
-        //Todo: ------!!!通过calendar.active.formatted（时间）调用函数返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp-------
-        let eventTemp = this.eventList[calendar.active.formatted]
+//        // ------!!!通过calendar.active.formatted（时间）调用函数返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp-------
+//        //
+//        let user_temp = this.userName; // "doubleZ";
+//        let date_temp = calendar.active.formatted;   // "2/6/2019"
+//        let data_arr = date_temp.split("/");
+//
+//        //处理用户名字段
+//        let user_info = user_temp;
+//
+//        //处理日期字段
+//        if(data_arr[0].length === 1){
+//            data_arr[0] = "0" + data_arr[0];
+//        }
+//        if(data_arr[1].length === 1){
+//            data_arr[1] = "0" + data_arr[1];
+//        }
+//        let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
+//
+//        let UserDate = {
+//            user: user_info,
+//            date: date_info
+//        };
+        //Todo: 根据UserDate调用后端，返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp----------------
+        /*调用后端函数 let eventTemp = await readPanorama(UserDate); */
+        //let eventTemp = this.eventList[calendar.active.formatted]
 
-        if(eventTemp){   // 如果eventList中有内容，内容覆盖
-            eventList = this.eventList[calendar.active.formatted];
+        let eventTemp = { description:'yes', path:'../img/test1.jpeg' };
+        if(eventTemp.description){   // 如果eventList中有内容，内容覆盖
+            eventList = [eventTemp];
             judge = true;
         }
+        //eventList = [{description:"yes",path:"../img/test1.jpeg"}];  //debug
         let eventTemplate = "";
 
         if(judge){  // 如果有内容
@@ -77,9 +102,13 @@ class CALENDAR {
 
                 // 下面这行html，将class="scene-item"换成class="scene-item"+count
                 // eventTemplate += `<li><a class="scene-item" href="/">${item}</a></li>`;
-                //Todo: href中的"/"用图片的地址代替，传入数据为之前的eventTemp，picPath = eventTemp[0].picPath , ${picPath}
-                eventTemplate = `<li><a class="scene-item" href="/">${item}</a></li>`;
-                //Todo: css中设置scene-item的background的url为picPath
+                // href中的"/"用图片的地址代替，传入数据为之前的eventTemp，picPath = eventTemp[0].picPath , ${picPath}
+
+                //Todo: href="/"将被替代为全景图片的路径
+                console.log(item.path);
+                eventTemplate = `<li><a style="background: linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(\'${item.path}\') no-repeat center;" id="scene" class="scene-item" href="/">${item.description}</a></li>`;
+                //Todo: css中设置scene-item的background的url为item.path
+//                document.getElementById('scene').style['background'] = 'linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(' + item.path + ') no-repeat center;';
             });
         } else {
             eventList.forEach(item => {
@@ -152,7 +181,7 @@ class CALENDAR {
             let aMonth = day.month.toString();
             let aYear = day.year.toString();
             let dayFormat = aDay + '/' + aMonth + '/' + aYear;
-            //Todo: ------！！！根据this.userName和具体日期dayFormat调用函数返回 来判断是否有Event, 返回到day.hasEvent------
+            // ------！！！根据this.userName和具体日期dayFormat调用函数返回 来判断是否有Event, 返回到day.hasEvent------
 
             let user_temp = this.userName;
             let date_temp = aDay + '/' + aMonth + '/' + aYear;   // 2/6/2019
@@ -241,42 +270,56 @@ class CALENDAR {
             this.drawAll()
         });
 
-
-        this.elements.eventAddBtn.addEventListener('click', e => {     //!!!添加图像，改成上传图像操作
-            addEvent(document.getElementById('img_input'));
-//            let fieldValue = this.elements.eventField.value;
-//            if (!fieldValue) return false;
-//            let dateFormatted = this.getFormattedDate(new Date(this.date));
+//        this.elements.eventLink.addEventListener('mouseenter', e => {
+//            // highlight the mouseover target
+//            let classVal = e.getAttribute("class");
+//            classVal = classVal.concat(" hover");
+//            e.style['background'] = 'linear-gradient(to right ,rgba(102, 112, 93, 0),rgba(102, 112, 93, 0.7)),url(' + this.itemPath + ') no-repeat center;';
+//        });
 //
-//            //Todo 通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
-//            UploadHandle(document.getElementById('img_input'), username, dateFormatted); //???
-//            // ---从这里开始
-////            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
-////            this.eventList[dateFormatted].push(fieldValue);
-////            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
-//            // ---到这里结束 全部注释掉
-//            this.elements.eventField.value = '';
-//            this.drawAll()
-        });
+//        this.elements.eventLink.addEventListener('mouseleave', e => {
+//            // highlight the mouseover target
+//            let classVal = e.getAttribute("class");
+//            classVal = classVal.replace("hover", "");
+//            e.style['background'] = 'linear-gradient(to right ,rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)),url(' + this.itemPath + ') no-repeat center;';
+//        });
 
-        this.elements.eventDeleteBtn.addEventListener('click', e => {
-            // 删除当前页面的Event
-            let calendar = this.getCalendar();
-            let eventList = ['There is not any scenes.'];
-            // ???------!!!调用函数返回 和this.eventList[calendar.active.formatted]等意义的东西-------
-            let eventTemplate = "";
-            eventList.forEach(item => {
-                // eventTemplate += `<li>${item}</li>`;
-                eventTemplate = `<li>${item}</li>`;
-            });
-            this.elements.eventList.innerHTML = eventTemplate; //往Calendar的eventList中添加eventTemplate的html
 
-            // 删除数据库中的内容：
-            let dateFormatted = this.getFormattedDate(new Date(this.date));
-            //Todo 通过 dateFormatted 和 用户信息（this.userName） 调用函数 删除后端图片
+//        this.elements.eventAddBtn.addEventListener('click', e => {     //!!!添加图像，改成上传图像操作
+//            addEvent(document.getElementById('img_input'));
+////            let fieldValue = this.elements.eventField.value;
+////            if (!fieldValue) return false;
+////            let dateFormatted = this.getFormattedDate(new Date(this.date));
+////
+////            //通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
+////            UploadHandle(document.getElementById('img_input'), username, dateFormatted); //???
+////            // ---从这里开始
+//////            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
+//////            this.eventList[dateFormatted].push(fieldValue);
+//////            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
+////            // ---到这里结束 全部注释掉
+////            this.elements.eventField.value = '';
+////            this.drawAll()
+//        });
 
-            // this.drawAll()
-        });
+//        this.elements.eventDeleteBtn.addEventListener('click', e => {
+//            // 删除当前页面的Event
+//            let calendar = this.getCalendar();
+//            let eventList = ['There is not any scenes.'];
+//            // ???------!!!调用函数返回 和this.eventList[calendar.active.formatted]等意义的东西-------
+//            let eventTemplate = "";
+//            eventList.forEach(item => {
+//                // eventTemplate += `<li>${item}</li>`;
+//                eventTemplate = `<li>${item}</li>`;
+//            });
+//            this.elements.eventList.innerHTML = eventTemplate; //往Calendar的eventList中添加eventTemplate的html
+//
+//            // 删除数据库中的内容：
+//            let dateFormatted = this.getFormattedDate(new Date(this.date));
+//            // 通过 dateFormatted 和 用户信息（this.userName） 调用函数 删除后端图片
+//
+//            // this.drawAll()
+//        });
     }
 
     updateTime(time) {
@@ -361,12 +404,14 @@ let calendar = new CALENDAR({
 function add(fileDOM){
     console.log(calendar);
     let fieldValue = calendar.elements.eventField.value;
-    if (!fieldValue) return false;
+    if (!fieldValue){
+        alert("描述内容不可为空。");
+        return false;
+    }
     let dateFormatted = calendar.getFormattedDate(new Date(calendar.date));
 
-    //Todo 通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
-
-    UploadHandle(fileDOM, calendar.userName, dateFormatted);
+    //通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
+    UploadHandle(fileDOM, calendar.userName, dateFormatted, fieldValue);
     // ---从这里开始
 //            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
 //            this.eventList[dateFormatted].push(fieldValue);

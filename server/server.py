@@ -187,7 +187,7 @@ def login(UserPwd):
 
 
 if __name__ == '__main__':
-    eel.start('homepage.html')
+    eel.start('login.html')
 
 
 
