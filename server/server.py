@@ -116,7 +116,7 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
         add_panorama_db(UserDateImgnameImgsrcDescLengthIndex)
 
     flag = False
-    newpath = UserDateImgnameImgsrcDescLengthIndex['user']+"/"+UserDateImgnameImgsrcDescLengthIndex['date']
+    newpath = UserDateImgnameImgsrcDescLengthIndex['user']+"/"+UserDateImgnameImgsrcDescLengthIndex['date'] + "/"
     allpath = "../web/img/" + newpath
     imgdata = base64.b64decode(UserDateImgnameImgsrcDescLengthIndex["imgsrc"])
     if int(UserDateImgnameImgsrcDescLengthIndex["index"]) == 0:
@@ -130,7 +130,7 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
     appidx = "." + UserDateImgnameImgsrcDescLengthIndex["imgname"].split('.')[1]
     filename = str(UserDateImgnameImgsrcDescLengthIndex["index"]) + appidx
 
-    with open("../web/img/"+newpath+"/"+ filename, 'wb') as file:
+    with open("../web/img/"+newpath + filename, 'wb') as file:
         file.write(imgdata)
 
     # TODO 多张图片的全景拼接
@@ -140,7 +140,7 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
             filenames.append(str(i) + appidx)
         full_view_imgname = get_full_view_image(filenames, allpath)
 
-        os.rename(allpath + full_view_imgname, allpath + UserDateImgnameImgsrcDescLengthIndex["date"])
+        os.rename(allpath + full_view_imgname, allpath + UserDateImgnameImgsrcDescLengthIndex["date"] + appidx)
 
 
     ###################

@@ -102,9 +102,8 @@ def get_full_view_image(filenames, dirname):
 
 
 if __name__ == '__main__':
-    # full_view('test1.jpeg', 'test2.jpeg')
-    # full_view('true1.jpg', 'true2.jpg')
-    # full_view('room1.jpg', 'room2.jpg')
+    dirname = '../web/img/'
 
     filenames = ['this1.jpeg', 'this2.jpeg', 'this3.jpeg']
-    result_name = get_full_view_image(filenames)
+    # filenames = ['test1.jpeg', 'test2.jpeg']
+    result_name = get_full_view_image(filenames, dirname)
