@@ -39,7 +39,8 @@ def full_view(filename1, filename2):
     good = []
     # 提取优秀的特征点
     for m, n in matches:
-        if m.distance < 0.7 * n.distance:  # 如果第一个邻近距离比第二个邻近距离的0.7倍小，则保留
+        # if m.distance < 0.7 * n.distance:  # 如果第一个邻近距离比第二个邻近距离的0.7倍小，则保留
+        if m.distance < 0.3 * n.distance:
             good.append(m)
     src_pts = np.array([kp1[m.queryIdx].pt for m in good])  # 查询图像的特征描述子索引
     dst_pts = np.array([kp2[m.trainIdx].pt for m in good])  # 训练(模板)图像的特征描述子索引
@@ -49,11 +50,20 @@ def full_view(filename1, filename2):
     h1, w1 = rightgray.shape[:2]
     shft = np.array([[1.0, 0, w], [0, 1.0, 0], [0, 0, 1.0]])
     M = np.dot(shft, H[0])  # 获取左边图像到右边图像的投影映射关系
-    dst_corners = cv2.warpPerspective(leftgray, M, (w * 2, h))  # 透视变换，新图像可容纳完整的两幅图
-    # dst_corners[0:h, 0:w] = leftgray
-    dst_corners[0:h, w:w * 2] = rightgray  # 将第二幅图放在右侧
-    dst_corners = dst_corners[:, 100:]
 
+    dst_corners = cv2.warpPerspective(leftgray, M, (w * 2, h))  # 透视变换，新图像可容纳完整的两幅图
+    # cv2.imshow('before add right', dst_corners)
+    # dst_corners[0:h, 0:w] = leftgray
+    dst_corners[0:h, w:w+w1] = rightgray  # 将第二幅图放在右侧
+
+    # 删除空白列
+    sum_col = np.sum(np.sum(dst_corners, axis=0), axis=1)
+    for i in range(len(sum_col)):
+        if sum_col[i] != 0:
+            dst_corners = dst_corners[:, i:]
+            break
+
+    # cv2.imshow('dest', dst_corners)
     cv2.imwrite(dirname + 'tiled.jpg', dst_corners)
 
     cv2.waitKey()
@@ -94,5 +104,7 @@ def read_db(userName):
     return result
 
 if __name__ == '__main__':
-    eel.start('homepage.html')
+    # eel.start('homepage.html')
     # full_view('test1.jpeg', 'test2.jpeg')
+    # full_view('true1.jpg', 'true2.jpg')
+    full_view('room1.jpg', 'room2.jpg')
