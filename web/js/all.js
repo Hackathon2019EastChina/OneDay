@@ -435,37 +435,6 @@ function add(fileDOM){
     setTimeout("window.location.reload()",1000);
 }
 
-//(function () {
-//    new CALENDAR({
-//        id: "calendar"
-//    })
-//})();
-
-
-// function hrefHandle(DOM) {
-//     console.log(DOM.date, DOM.user);
-//
-//     // let user_temp = userName;
-//     // let date_temp = "2/6/2019";
-//     // let data_arr = date_temp.split("/");
-//     //
-//     // console.log(user_temp);
-//     // console.log(date_temp);
-//     //
-//     // //处理用户名字段
-//     // let user_info = user_temp;
-//     //
-//     // //处理日期字段
-//     // if(data_arr[0].length === 1){
-//     //     data_arr[0] = "0" + data_arr[0];
-//     // }
-//     // if(data_arr[1].length === 1){
-//     //     data_arr[1] = "0" + data_arr[1];
-//     // }
-//     // let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
-//     //
-//     // window.location.href="panorama.html?user="+user_info+"&date="+date_info;
-// }
 function hrefHandle() {
 
     let user_temp = userName;
@@ -486,4 +455,5 @@ function hrefHandle() {
     let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
 
     window.location.href="panorama.html?user="+user_info+"&date="+date_info;
+
 }
