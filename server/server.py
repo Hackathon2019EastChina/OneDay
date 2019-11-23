@@ -9,6 +9,8 @@
 '''
 
 # coding: utf-8
+import shutil
+
 import eel
 import os, base64
 from base64 import b64decode
@@ -86,14 +88,14 @@ def add_panorama_db(UserDateImgnameImgsrcDescLengthIndex):
     # 创建游标
     c = conn.cursor()
     c.execute("SELECT EXISTS(SELECT user_name FROM panorama WHERE user_name= \'"+
-              UserDateImgnameImgsrcDescLengthIndex["username"]+"\' AND date= \'"
-              + UserDateImgnameImgsrcDescLengthIndex["dtae"] + "\')")
+              UserDateImgnameImgsrcDescLengthIndex["user"]+"\' AND date= \'"
+              + UserDateImgnameImgsrcDescLengthIndex["date"] + "\')")
     if c.fetchone():
         # 创建游标
         c = conn.cursor()
         c.execute("UPDATE panorama SET description=\'"+UserDateImgnameImgsrcDescLengthIndex["description"]+
-                  "\' WHERE user_name= \'"+ UserDateImgnameImgsrcDescLengthIndex["username"]+"\' AND date= \'"
-              + UserDateImgnameImgsrcDescLengthIndex["dtae"] + "\'")
+                  "\' WHERE user_name= \'"+ UserDateImgnameImgsrcDescLengthIndex["user"]+"\' AND date= \'"
+              + UserDateImgnameImgsrcDescLengthIndex["date"] + "\'")
     else:
         # 创建游标
         c = conn.cursor()
@@ -119,16 +121,17 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
     imgdata = base64.b64decode(UserDateImgnameImgsrcDescLengthIndex["imgsrc"])
     if int(UserDateImgnameImgsrcDescLengthIndex["index"]) == 0:
         if os.path.exists(allpath):
-            os.rmdir(allpath)
+            # os.removedirs(allpath)
+            shutil.rmtree(allpath)
         mkdir(newpath)
     elif int(UserDateImgnameImgsrcDescLengthIndex["index"]) == int(UserDateImgnameImgsrcDescLengthIndex["length"])-1:
         flag = True
 
     appidx = "." + UserDateImgnameImgsrcDescLengthIndex["imgname"].split('.')[1]
-    filename = UserDateImgnameImgsrcDescLengthIndex["index"] + appidx
-    file = open("../web/img/"+newpath+"/"+ filename, 'wb')
-    file.write(imgdata)
-    file.close()
+    filename = str(UserDateImgnameImgsrcDescLengthIndex["index"]) + appidx
+
+    with open("../web/img/"+newpath+"/"+ filename, 'wb') as file:
+        file.write(imgdata)
 
     # TODO 多张图片的全景拼接
     if flag:
