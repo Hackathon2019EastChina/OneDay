@@ -35,8 +35,15 @@ body {
     /* Chrome, Safari, and Opera */
     -webkit-touch-callout: none;
     /* Disable Android and iOS callouts*/ }
-
-.calendar, .calendar .add-event-day .add-event-day-field-btn, .calendar .calendar-days li:after {
+.calendar, .calendar .add-event-day .add-event-day-field-btn{
+    position: absolute;
+    right: 20px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.calendar, .calendar .add-event-day .delete-event-day-field-btn, .calendar .calendar-days li:after {
     position: absolute;
     right: 0;
     left: 0;
@@ -52,7 +59,7 @@ body {
     overflow: hidden; }
 .calendar .calendar-left-side-day-of-week, .calendar .current-day-events ul, .calendar .add-event-day, .calendar .calendar-change-year, .calendar .calendar-days li {
     position: relative; }
-.calendar .calendar-left-side-day, .calendar .calendar-left-side-day-of-week, .calendar .current-day-events, .calendar .add-event-day-field-btn, .calendar .add-event-day-field {
+.calendar .calendar-left-side-day, .calendar .calendar-left-side-day-of-week, .calendar .current-day-events, .calendar .add-event-day-field-btn, .calendar .delete-event-day-field-btn, .calendar .add-event-day-field {
     color: white; }
 .calendar .calendar-left-side-day-of-week, .calendar .calendar-week {
     text-transform: uppercase; }
@@ -89,7 +96,7 @@ body {
     outline: none; }
 .calendar .add-event-day .add-event-day-field::placeholder {
     color: #ccc; }
-.calendar .add-event-day .add-event-day-field-btn {
+.calendar .add-event-day .add-event-day-field-btn, .calendar .add-event-day .delete-event-day-field-btn {
     left: inherit;
     line-height: 34px; }
 .calendar .right-side {
@@ -190,7 +197,7 @@ a.scene-item:link{
     padding-left: 5px;
     color: rgb(205, 209, 204);
     border-left: 1.5px solid rgb(205, 209, 204);
-    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('../img/test2.jpeg') no-repeat center;
+    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('../img/test1.jpeg') no-repeat center;
     /* background-image: url('/files/00.jpg');
     background-color: rgba(172, 190, 158, 0.9); */
 }
@@ -204,12 +211,13 @@ a.scene-item:visited{
     padding-left: 5px;
     color: rgb(205, 209, 204);
     border-left: 1.5px solid rgb(205, 209, 204);
-    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('../img/test2.jpeg') no-repeat center;
+    background: linear-gradient(to right ,rgba(102, 112, 93, 0.3),rgba(102, 112, 93, 0.9)),url('../img/test1.jpeg') no-repeat center;
     /* background-image: url('/files/00.jpg');
     background-color: rgba(172, 190, 158, 0.9); */
 }
 a.scene-item{
     transition: all .3s linear;
+    /* width: 80%; */
 }
 a.scene-item:hover{
     display:block;
@@ -221,8 +229,17 @@ a.scene-item:hover{
     padding-left: 5px;
     color: white;
     border-left: 1.5px solid rgb(225, 226, 222);
-    background: linear-gradient(to right ,rgba(102, 112, 93, 0),rgba(102, 112, 93, 0.7)),url('../img/test2.jpeg') no-repeat center;
+    background: linear-gradient(to right ,rgba(102, 112, 93, 0),rgba(102, 112, 93, 0.7)),url('../img/test1.jpeg') no-repeat center;
     /* background-image: url('/files/00.jpg');
     background-color: rgba(172, 190, 158, 0.9); */
     box-shadow: 0 0 6px #dcdcdc;
 }
+/* ------!!!------ */
+/* .delete-item{
+    width: 13px;
+    background-color: red;
+    display: inline-block;
+} */
+/* .current-day-events-list li{
+    display: inline-block;
+} */
