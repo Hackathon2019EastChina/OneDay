@@ -110,7 +110,7 @@ class CALENDAR {
 
                 //Todo: href="/"将被替代为全景图片的路径
                 console.log(item.path);
-                eventTemplate = `<li><a style="background: linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(\'${item.path}\') no-repeat center;" id="scene" class="scene-item" href="/">${item.description}</a></li>`;
+                eventTemplate = `<li><a style="background: linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(\'../img/${item.path}\') no-repeat center;" id="scene" class="scene-item" href="/">${item.description}</a></li>`;
                 //css中设置scene-item的background的url为item.path
 //                document.getElementById('scene').style['background'] = 'linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(' + item.path + ') no-repeat center;';
             });
@@ -421,7 +421,6 @@ function add(fileDOM){
     }
     let dateFormatted = calendar.getFormattedDate(new Date(calendar.date));
 
-    console.log('add()', fieldValue);
     //通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
     UploadHandle(fileDOM, userName, dateFormatted, fieldValue);
     // ---从这里开始
@@ -429,6 +428,7 @@ function add(fileDOM){
 //            this.eventList[dateFormatted].push(fieldValue);
 //            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
     // ---到这里结束 全部注释掉
+    setTimeout(()=>{},1000)
     calendar.elements.eventField.value = '';
     calendar.drawAll()
 }
