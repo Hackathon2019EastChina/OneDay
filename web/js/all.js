@@ -1,12 +1,13 @@
 const AVAILABLE_WEEK_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const localStorageName = 'user-name';   // ----！！！-------
-let userName_ = 'stern';   // ----！！！-------
+let userName = localStorage.getItem(localStorageName);   // ----！！！-------
+let daysTemplate = "";
 //!!!!! 时间格式：day/month/year , month范围[0,11]
 
 
 class CALENDAR {
     constructor(options) {
-        this.userName = '';
+        // this.userName = '';
         this.options = options;
         this.elements = {
             days: this.getFirstElementInsideIdByClassName('calendar-days'),
@@ -36,14 +37,14 @@ class CALENDAR {
         if (!this.options.id) return false;
         this.eventsTrigger();
         this.drawAll();
-        this.getUserName();
+        // this.getUserName();
     }
 
     // ------!!!获得用户名信息------
-    getUserName() {
-        this.userName = localStorage.getItem(localStorageName);
-        console.log(this.userName);
-    }
+    // getUserName() {
+    //     this.userName = localStorage.getItem(localStorageName);
+    //     console.log(this.userName);
+    // }
 
     // draw Methods
     drawAll() {
@@ -62,31 +63,33 @@ class CALENDAR {
         let eventList = ['There is not any scenes.'];
 //        // ------!!!通过calendar.active.formatted（时间）调用函数返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp-------
 //        //
-//        let user_temp = this.userName; // "doubleZ";
-//        let date_temp = calendar.active.formatted;   // "2/6/2019"
-//        let data_arr = date_temp.split("/");
-//
-//        //处理用户名字段
-//        let user_info = user_temp;
-//
-//        //处理日期字段
-//        if(data_arr[0].length === 1){
-//            data_arr[0] = "0" + data_arr[0];
-//        }
-//        if(data_arr[1].length === 1){
-//            data_arr[1] = "0" + data_arr[1];
-//        }
-//        let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
-//
-//        let UserDate = {
-//            user: user_info,
-//            date: date_info
-//        };
+       let user_temp = userName; // "doubleZ";
+       let date_temp = calendar.active.formatted;   // "2/6/2019"
+       let data_arr = date_temp.split("/");
+
+       //处理用户名字段
+       let user_info = user_temp;
+
+       //处理日期字段
+       if(data_arr[0].length === 1){
+           data_arr[0] = "0" + data_arr[0];
+       }
+       if(data_arr[1].length === 1){
+           data_arr[1] = "0" + data_arr[1];
+       }
+       let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
+
+       let UserDate = {
+           user: user_info,
+           date: date_info
+       };
         //Todo: 根据UserDate调用后端，返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp----------------
         let eventTemp = await readPanorama(UserDate);
         //let eventTemp = this.eventList[calendar.active.formatted]
 
         //let eventTemp = { description:'yes', path:'../img/test1.jpeg' };
+        console.log(eventTemp);
+
         if(eventTemp.description){   // 如果eventList中有内容，内容覆盖
             eventList = [eventTemp];
             judge = true;
@@ -178,15 +181,15 @@ class CALENDAR {
             return newDayParams;
         });
 
-        let daysTemplate = "";
-        days.forEach(day => {
+
+        days.forEach(async day => {
             let aDay = day.dayNumber.toString();
             let aMonth = day.month.toString();
             let aYear = day.year.toString();
             let dayFormat = aDay + '/' + aMonth + '/' + aYear;
             // ------！！！根据this.userName和具体日期dayFormat调用函数返回 来判断是否有Event, 返回到day.hasEvent------
 
-            let user_temp = this.userName;
+            let user_temp = userName;
             let date_temp = aDay + '/' + aMonth + '/' + aYear;   // 2/6/2019
             let data_arr = date_temp.split("/");
             //处理用户名字段
@@ -203,11 +206,14 @@ class CALENDAR {
                 user: user_info,
                 date: date_info
             };
+
+
             /*TODO 这里调后端返回 imgsrc 和 labels*/
 
-            // day.hasEvent = eel.你的函数(UserDate);
-            //------------------------
-            daysTemplate += `<li class="${day.currentMonth ? '' : 'another-month'}${day.today ? ' active-day ' : ''}${day.selected ? 'selected-day' : ''}${day.hasEvent ? ' event-day' : ''}" data-day="${day.dayNumber}" data-month="${day.month}" data-year="${day.year}"></li>`
+            // day.hasEvent = await initCalender(UserDate);
+            // day.hasEvent = day.hasEvent.state;
+            day.hasEvent = false;
+            daysTemplate += `<li class="${day.currentMonth ? '' : 'another-month'}${day.today ? ' active-day ' : ''}${day.selected ? 'selected-day' : ''}${day.hasEvent ? ' event-day' : ''}" data-day="${day.dayNumber}" data-month="${day.month}" data-year="${day.year}"></li>`;
         });
 
         this.elements.days.innerHTML = daysTemplate;
@@ -406,7 +412,9 @@ let calendar = new CALENDAR({
 
 function add(fileDOM){
     console.log(calendar);
+
     let fieldValue = calendar.elements.eventField.value;
+
     if (!fieldValue){
         alert("描述内容不可为空。");
         return false;
@@ -414,7 +422,7 @@ function add(fileDOM){
     let dateFormatted = calendar.getFormattedDate(new Date(calendar.date));
 
     //通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
-    UploadHandle(fileDOM, calendar.userName, dateFormatted, fieldValue);
+    UploadHandle(fileDOM, userName, dateFormatted, fieldValue);
     // ---从这里开始
 //            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
 //            this.eventList[dateFormatted].push(fieldValue);

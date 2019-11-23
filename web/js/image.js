@@ -1,6 +1,6 @@
 let files_saver = [];
 
-function UploadHandle(fileDOM, username, dateFormatted) {
+function UploadHandle(fileDOM, username, dateFormatted, fieldValue) {
     files_saver = [];
 
 //    console.log("test SUCCEED! "+username+dateFormatted); //test
@@ -21,7 +21,7 @@ function UploadHandle(fileDOM, username, dateFormatted) {
  * imgname: test1.png
  * imgsrc: [Base64编码的图片]
  */
-function SendImage(fileDOM, username, dateFormatted) {
+function SendImage(fileDOM, username, dateFormatted, fieldValue) {
     let imageType = /^image\//;
 
     /*TODO*/
@@ -41,9 +41,9 @@ function SendImage(fileDOM, username, dateFormatted) {
     }
     let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
 
-    /*TODO*/
     //处理描述字段
-    let desp_info = "this is a description";
+    let desp_info = fieldValue;
+    console.log(fieldValue);
 
 
     let filesnum = fileDOM.files.length;

@@ -82,7 +82,11 @@ def read_panorama(UserDate):
     print(result1)
     print(result2)
 
-    result = {'path': result2[1], 'description': result2[0], 'label': result1}
+    if result2 is None:
+        result = {'path': '', 'description': '', 'label': result1}
+    else:
+        result = {'path': result2[1], 'description': result2[0], 'label': result1}
+
     c.close()
     return result
 
@@ -138,7 +142,6 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
     imgdata = base64.b64decode(UserDateImgnameImgsrcDescLengthIndex["imgsrc"])
     if int(UserDateImgnameImgsrcDescLengthIndex["index"]) == 0:
         if os.path.exists(allpath):
-            # os.removedirs(allpath)
             shutil.rmtree(allpath)
         mkdir(newpath)
     elif int(UserDateImgnameImgsrcDescLengthIndex["index"]) == int(UserDateImgnameImgsrcDescLengthIndex["length"])-1:

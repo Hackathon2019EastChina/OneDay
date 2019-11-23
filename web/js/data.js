@@ -7,6 +7,10 @@ async function readPanorama(UserData) {
     return readPanoramaData;
 }
 
+async function initCalender(UserDate) {
+    let readCalenderData = eel.init_calendar(UserDate)()
+    return readCalenderData;
+}
 
 function addPanorama(UserDataImgnameImgsrcDesc){
     eel.add_panorama(UserDataImgnameImgsrcDesc)
