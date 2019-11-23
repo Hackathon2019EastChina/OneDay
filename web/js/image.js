@@ -25,8 +25,8 @@ function UploadHandle(fileDOM) {
 function SendImage(fileDOM) {
     let imageType = /^image\//;
 
-    let user_temp = "doubleZ";
-    let date_temp = "2/6/2019";   // 2/6/2019
+    let user_temp = "tj";
+    let date_temp = "20/11/2019";   // 2/6/2019
     let data_arr = date_temp.split("/");
 
     //处理用户名字段
@@ -43,7 +43,7 @@ function SendImage(fileDOM) {
 
     /*TODO*/
     //处理描述字段
-    // let desp_info = document.getElementById(...);
+    let desp_info = "this is a description";
 
 
     for(let i=0;i<fileDOM.files.length;++i){
@@ -59,7 +59,7 @@ function SendImage(fileDOM) {
         reader.onload = function (event) {
             let img_base64 = event.target.result.split(",")[1];
 
-            let UserDateImage = {
+            let UserDataImgnameImgsrcDesc = {
                 user: user_info,           //
                 date: date_info,            //2019-01-01
                 description: desp_info,
@@ -67,8 +67,7 @@ function SendImage(fileDOM) {
                 imgsrc: img_base64
             };
 
-            /*TODO 这里调后端返回 imgsrc*/
-            //eel.你的函数(UserDateImage)
+            addPanorama(UserDataImgnameImgsrcDesc)
         };
 
         files_saver.push(file.name);
