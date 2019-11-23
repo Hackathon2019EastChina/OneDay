@@ -91,9 +91,9 @@ def add_panorama_db(UserDateImgnameImgsrcDescLengthIndex):
     conn = sqlite3.connect("../db/OneDay.db")
     # 创建游标
     c = conn.cursor()
-    c.execute("SELECT EXISTS(SELECT user_name FROM panorama WHERE user_name= \'"+
+    c.execute("SELECT user_name FROM panorama WHERE user_name= \'"+
               UserDateImgnameImgsrcDescLengthIndex["user"]+"\' AND date= \'"
-              + UserDateImgnameImgsrcDescLengthIndex["date"] + "\')")
+              + UserDateImgnameImgsrcDescLengthIndex["date"] + "\'")
     if c.fetchone():
         # 创建游标
         c = conn.cursor()
@@ -153,22 +153,26 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
 
 @eel.expose
 def register(UserPwd):
+    print("register被执行...")
+    state = {'state': False}
     conn = sqlite3.connect("../db/OneDay.db")
     # 创建游标
     c = conn.cursor()
-    c.execute("SELECT EXISTS(SELECT user_name FROM user WHERE user_name= \'"+UserPwd["username"]+"\')")
-    state = {'state': False}
-    if(c.fetchone()):
+    c.execute("SELECT user_name FROM user WHERE user_name = \'"+UserPwd["username"]+"\'")
+    # a=UserPwd["username"]
+    # temp = c.fetchone()
+    if c.fetchone():
         return state
-    # 插入User
-    c.execute("INSERT INTO user (user_name,password) VALUES (?,?)",
-              UserPwd["username"], UserPwd["password"])
-    # 提交事务
-    conn.commit()
-    # 关闭连接
-    conn.close()
-    state['state'] = True
-    return state
+    else:
+        c = conn.cursor()
+        # 插入User
+        c.execute("INSERT INTO user (user_name,user_password) VALUES (?,?)", (UserPwd["username"], UserPwd["password"]))
+        # 提交事务
+        conn.commit()
+        # 关闭连接
+        conn.close()
+        state['state'] = True
+        return state
 
 
 @eel.expose
@@ -176,8 +180,8 @@ def login(UserPwd):
     conn = sqlite3.connect("../db/OneDay.db")
     # 创建游标
     c = conn.cursor()
-    c.execute("SELECT EXISTS(SELECT user_name FROM user WHERE user_name= \'"+UserPwd["username"]+"\' AND password= \'"+
-              UserPwd["password"] + "\')")
+    c.execute("SELECT user_name FROM user WHERE user_name= \'"+UserPwd["username"]+"\' AND user_password= \'"+
+              UserPwd["password"] + "\'")
     state = {'state': False}
     if not c.fetchone():
         return state

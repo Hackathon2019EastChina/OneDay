@@ -16,3 +16,7 @@ function receiveSignUp(userpassword){
     eel.register(userpassword);
 }
 
+async function receiveSignIn(userpassword){
+    let pass = eel.login(userpassword)();
+    return pass;
+}

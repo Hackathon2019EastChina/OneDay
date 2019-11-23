@@ -25,20 +25,23 @@ accountSignUpButton.addEventListener('click', () => {
     let password = signUpPassword.value;
     console.log(name+" " + password);
     //Todo: 将[name, password]传给后端，记录用户名称和密码
-    let userpassword = "{username:"+name+",password:"+password+"}";
-    receiveSignUp(userpassword);
+    let userPassword = {username:name,password:password};
+    console.log(userPassword);
+    receiveSignUp(userPassword);
     const hiddenText = document.getElementById('success-sign-up');
     hiddenText.className = 'show';
-    setTimeout("window.location.reload()",1000);
+    //setTimeout("window.location.reload()",100000);
 });
 
-accountSignInButton.addEventListener('click', () => {
+accountSignInButton.addEventListener('click',async () => {
     let name = signInName.value;
     let password = signInPassword.value;
     console.log(name+" " + password);  //Test
     //Todo: 将[name, password]传给后端，判断正确还是错误，返回pass
-    let pass = true;  //Test
-    if(pass) {
+    let userPassword = {username:name,password:password};
+    let pass = await receiveSignIn(userPassword);  //Test
+    console.log(pass)
+    if(pass['state']) {
         const hiddenTextForSuccess = document.getElementById('success-sign-in');
         hiddenTextForSuccess.className = 'show';
         localStorage.setItem(localStorageName, name);
