@@ -421,6 +421,7 @@ function add(fileDOM){
     }
     let dateFormatted = calendar.getFormattedDate(new Date(calendar.date));
 
+    console.log('add()', fieldValue);
     //通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
     UploadHandle(fileDOM, userName, dateFormatted, fieldValue);
     // ---从这里开始
@@ -428,8 +429,8 @@ function add(fileDOM){
 //            this.eventList[dateFormatted].push(fieldValue);
 //            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
     // ---到这里结束 全部注释掉
-    this.elements.eventField.value = '';
-    this.drawAll()
+    calendar.elements.eventField.value = '';
+    calendar.drawAll()
 }
 
 //(function () {

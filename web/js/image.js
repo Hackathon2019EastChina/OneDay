@@ -11,7 +11,7 @@ function UploadHandle(fileDOM, username, dateFormatted, fieldValue) {
     }
 
     //把上传的图片存到后端
-    SendImage(fileDOM, username, dateFormatted);
+    SendImage(fileDOM, username, dateFormatted, fieldValue);
 }
 
 /**
@@ -24,7 +24,6 @@ function UploadHandle(fileDOM, username, dateFormatted, fieldValue) {
 function SendImage(fileDOM, username, dateFormatted, fieldValue) {
     let imageType = /^image\//;
 
-    /*TODO*/
     let user_temp = username; // "doubleZ";
     let date_temp = dateFormatted;   // "2/6/2019"
     let data_arr = date_temp.split("/");
@@ -43,7 +42,7 @@ function SendImage(fileDOM, username, dateFormatted, fieldValue) {
 
     //处理描述字段
     let desp_info = fieldValue;
-    console.log(fieldValue);
+    console.log('sendimage', fieldValue);
 
 
     let filesnum = fileDOM.files.length;

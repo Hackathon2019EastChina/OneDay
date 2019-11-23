@@ -3,12 +3,12 @@ function addTag(UserDateLabel) {
 }
 
 async function readPanorama(UserData) {
-    let readPanoramaData = eel.read_panorama(UserData)()
+    let readPanoramaData = eel.read_panorama(UserData)();
     return readPanoramaData;
 }
 
 async function initCalender(UserDate) {
-    let readCalenderData = eel.init_calendar(UserDate)()
+    let readCalenderData = eel.init_calendar(UserDate)();
     return readCalenderData;
 }
 
