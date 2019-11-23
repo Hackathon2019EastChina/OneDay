@@ -1,6 +1,7 @@
 const AVAILABLE_WEEK_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const localStorageName = 'calendar-events';   // ----！！！-------
 let userName_ = 'stern';   // ----！！！-------
+//!!!!! 时间格式：day/month/year , month范围[0,11]
 
 
 class CALENDAR {
