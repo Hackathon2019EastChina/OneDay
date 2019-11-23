@@ -2,20 +2,21 @@ let opt;
 let href = window.location.href;
 let user_index = href.indexOf("user=");
 let date_index = href.indexOf("&date=");
-let user_info = href.substr(user_index+5, date_index);
+let user_info = href.substring(user_index+5, date_index);
 let date_info = href.substr(date_index+6);
 
 window.onload = function () {
-    loadPanorama(imgsrc);
+    loadPanorama();
 };
 
 
-async function loadPanorama(imgsrc) {
+async function loadPanorama() {
     let UserDate = {
         user: user_info,
         date: date_info
     };
 
+    console.log(UserDate);
 
     /*TODO 这里调后端返回 imgsrc 和 labels*/
     //eel.你的函数(UserDate);
