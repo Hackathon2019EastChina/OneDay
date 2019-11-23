@@ -94,5 +94,5 @@ def read_db(userName):
     return result
 
 if __name__ == '__main__':
-    eel.start('homepage.html')
+    eel.start('calendar.html')
     # full_view('test1.jpeg', 'test2.jpeg')
