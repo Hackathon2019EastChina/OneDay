@@ -12,23 +12,22 @@ window.onload = function () {
 
 async function loadPanorama() {
     let UserDate = {
-        user: user_info,
-        date: date_info
+        user: "tj",
+        date: "2019-06-02"
     };
 
-    console.log(UserDate);
 
     /*TODO 这里调后端返回 imgsrc 和 labels*/
-    //eel.你的函数(UserDate);
-
-
     //读取数据
-    var ImgsrcLabels = await readDB("tj");
-    let url_str = ImgsrcLabels.imgsrc;
+    var ImgsrcLabels = await readPanorama(UserDate)
+    console.log(ImgsrcLabels)
     var labels_arr = [];
-    for(let lable in ImgsrcLabels.labels){
-        labels_arr.push(label);
+    for(let lable in ImgsrcLabels.label){
+        labels_arr.push(eval('(' + ImgsrcLabels.label[lable]+ ')'));
     }
+    console.log(labels_arr)
+    let url_str = 'img/' + ImgsrcLabels.path;
+    //console.log(url_str);
 
     opt = {
         container:'panoramaConianer',//容器
