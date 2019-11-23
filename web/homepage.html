@@ -19,24 +19,6 @@
 </body>
 
 <script>
-    function hrefHandle() {
-        let user_temp = "doubleZ";
-        let date_temp = '2/6/2019';   // 2/6/2019
-        let data_arr = date_temp.split("/");
 
-        //处理用户名字段
-        let user_info = user_temp;
-
-        //处理日期字段
-        if(data_arr[0].length === 1){
-            data_arr[0] = "0" + data_arr[0];
-        }
-        if(data_arr[1].length === 1){
-            data_arr[1] = "0" + data_arr[1];
-        }
-        let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
-
-        window.location.href="panorama.html?user="+user_info+"&date="+date_info;
-    }
 </script>
 </html>

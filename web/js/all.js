@@ -109,8 +109,10 @@ class CALENDAR {
                 // href中的"/"用图片的地址代替，传入数据为之前的eventTemp，picPath = eventTemp[0].picPath , ${picPath}
 
                 //Todo: href="/"将被替代为全景图片的路径
-                console.log(item.path);
-                eventTemplate = `<li><a style="background: linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(\'${item.path}\') no-repeat center;" id="scene" class="scene-item" href="/">${item.description}</a></li>`;
+                // console.log(item.path);
+                // eventTemplate = `<li><a style="background: linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(\'../img/${item.path}\') no-repeat center;" id="scene" class="scene-item" href="javascript:void(0);" onclick="hrefHandle('${UserDate}');">${item.description}</a></li>`;
+                eventTemplate = `<li><a style="background: linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(\'../img/${item.path}\') no-repeat center;" id="scene" class="scene-item" href="javascript:void(0);" onclick="hrefHandle();">${item.description}</a></li>`;
+
                 //css中设置scene-item的background的url为item.path
 //                document.getElementById('scene').style['background'] = 'linear-gradient(to right, rgba(102, 112, 93, 0.3), rgba(102, 112, 93, 0.9)), url(' + item.path + ') no-repeat center;';
             });
@@ -421,7 +423,6 @@ function add(fileDOM){
     }
     let dateFormatted = calendar.getFormattedDate(new Date(calendar.date));
 
-    console.log('add()', fieldValue);
     //通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
     UploadHandle(fileDOM, userName, dateFormatted, fieldValue);
     // ---从这里开始
@@ -430,7 +431,8 @@ function add(fileDOM){
 //            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
     // ---到这里结束 全部注释掉
     calendar.elements.eventField.value = '';
-    calendar.drawAll()
+    // calendar.drawAll();
+    setTimeout("window.location.reload()",1000);
 }
 
 //(function () {
@@ -438,3 +440,50 @@ function add(fileDOM){
 //        id: "calendar"
 //    })
 //})();
+
+
+// function hrefHandle(DOM) {
+//     console.log(DOM.date, DOM.user);
+//
+//     // let user_temp = userName;
+//     // let date_temp = "2/6/2019";
+//     // let data_arr = date_temp.split("/");
+//     //
+//     // console.log(user_temp);
+//     // console.log(date_temp);
+//     //
+//     // //处理用户名字段
+//     // let user_info = user_temp;
+//     //
+//     // //处理日期字段
+//     // if(data_arr[0].length === 1){
+//     //     data_arr[0] = "0" + data_arr[0];
+//     // }
+//     // if(data_arr[1].length === 1){
+//     //     data_arr[1] = "0" + data_arr[1];
+//     // }
+//     // let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
+//     //
+//     // window.location.href="panorama.html?user="+user_info+"&date="+date_info;
+// }
+function hrefHandle() {
+
+    let user_temp = userName;
+    let date_temp = calendar.getCalendar().active.formatted;
+    let data_arr = date_temp.split("/");
+
+
+    //处理用户名字段
+    let user_info = user_temp;
+
+    //处理日期字段
+    if(data_arr[0].length === 1){
+        data_arr[0] = "0" + data_arr[0];
+    }
+    if(data_arr[1].length === 1){
+        data_arr[1] = "0" + data_arr[1];
+    }
+    let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
+
+    window.location.href="panorama.html?user="+user_info+"&date="+date_info;
+}
