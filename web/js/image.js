@@ -1,10 +1,9 @@
 let files_saver = [];
 
-function UploadHandle(fileDOM) {
-    console.log(fileDOM);
-    console.log(fileDOM.files);
-
+function UploadHandle(fileDOM, username, dateFormatted) {
     files_saver = [];
+
+//    console.log("test SUCCEED! "+username+dateFormatted); //test
 
     if(!window.FileReader){
         alert("您的浏览器不支持图片预览功能, 如需该功能请升级您的浏览器!");
@@ -12,7 +11,7 @@ function UploadHandle(fileDOM) {
     }
 
     //把上传的图片存到后端
-    SendImage(fileDOM);
+    SendImage(username, dateFormatted);
 }
 
 /**
@@ -22,11 +21,11 @@ function UploadHandle(fileDOM) {
  * imgname: test1.png
  * imgsrc: [Base64编码的图片]
  */
-function SendImage(fileDOM) {
+function SendImage(username, dateFormatted) {
     let imageType = /^image\//;
 
-    let user_temp = "tj";
-    let date_temp = "20/11/2019";   // 2/6/2019
+    let user_temp = username; // "doubleZ";
+    let date_temp = dateFormatted;   // "2/6/2019"
     let data_arr = date_temp.split("/");
 
     //处理用户名字段
@@ -43,10 +42,11 @@ function SendImage(fileDOM) {
 
     /*TODO*/
     //处理描述字段
-    let desp_info = "this is a description";
+    // let desp_info = document.getElementById(...);
 
 
-    for(let i=0;i<fileDOM.files.length;++i){
+    let filesnum = fileDOM.files.length;
+    for(let i=0;i<filesnum;++i){
 
         let file = fileDOM.files[i];
         let reader = new FileReader();
@@ -59,15 +59,18 @@ function SendImage(fileDOM) {
         reader.onload = function (event) {
             let img_base64 = event.target.result.split(",")[1];
 
-            let UserDataImgnameImgsrcDesc = {
+            let UserDateImage = {
                 user: user_info,           //
                 date: date_info,            //2019-01-01
                 description: desp_info,
                 imgname: file.name,
-                imgsrc: img_base64
+                imgsrc: img_base64,
+                length: filesnum,
+                index: i
             };
 
-            addPanorama(UserDataImgnameImgsrcDesc)
+            /*TODO 这里调后端返回 imgsrc*/
+            //eel.你的函数(UserDateImage)
         };
 
         files_saver.push(file.name);
