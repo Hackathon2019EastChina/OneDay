@@ -123,12 +123,23 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
         mkdir(newpath)
     elif int(UserDateImgnameImgsrcDescLengthIndex["index"]) == int(UserDateImgnameImgsrcDescLengthIndex["length"])-1:
         flag = True
-    file = open("../web/img/"+newpath+"/"+ UserDateImgnameImgsrcDescLengthIndex['date'] + "."+ UserDateImgnameImgsrcDescLengthIndex['imgname']
-                .split('.')[1] , 'wb')
+
+    appidx = "." + UserDateImgnameImgsrcDescLengthIndex["imgname"].split('.')[1]
+    filename = UserDateImgnameImgsrcDescLengthIndex["index"] + appidx
+    file = open("../web/img/"+newpath+"/"+ filename, 'wb')
     file.write(imgdata)
     file.close()
 
     # TODO 多张图片的全景拼接
+    if flag:
+        filenames = []
+        for i in range(int(UserDateImgnameImgsrcDescLengthIndex["length"])):
+            filenames.append(str(i) + appidx)
+        full_view_imgname = get_full_view_image(filenames, allpath)
+
+        os.rename(allpath + full_view_imgname, allpath + UserDateImgnameImgsrcDescLengthIndex["date"])
+
+
     ###################
 
 
@@ -169,7 +180,7 @@ def login(UserPwd):
 
 
 if __name__ == '__main__':
-    eel.start('index.html')
+    eel.start('homepage.html')
 
 
 

@@ -11,7 +11,7 @@ function UploadHandle(fileDOM, username, dateFormatted) {
     }
 
     //把上传的图片存到后端
-    SendImage(username, dateFormatted);
+    SendImage(fileDOM, username, dateFormatted);
 }
 
 /**
@@ -21,9 +21,10 @@ function UploadHandle(fileDOM, username, dateFormatted) {
  * imgname: test1.png
  * imgsrc: [Base64编码的图片]
  */
-function SendImage(username, dateFormatted) {
+function SendImage(fileDOM, username, dateFormatted) {
     let imageType = /^image\//;
 
+    /*TODO*/
     let user_temp = username; // "doubleZ";
     let date_temp = dateFormatted;   // "2/6/2019"
     let data_arr = date_temp.split("/");
@@ -42,7 +43,7 @@ function SendImage(username, dateFormatted) {
 
     /*TODO*/
     //处理描述字段
-    // let desp_info = document.getElementById(...);
+    let desp_info = "this is a description";
 
 
     let filesnum = fileDOM.files.length;
@@ -59,7 +60,7 @@ function SendImage(username, dateFormatted) {
         reader.onload = function (event) {
             let img_base64 = event.target.result.split(",")[1];
 
-            let UserDateImage = {
+            let UserDataImgnameImgsrcDesc = {
                 user: user_info,           //
                 date: date_info,            //2019-01-01
                 description: desp_info,
@@ -70,7 +71,7 @@ function SendImage(username, dateFormatted) {
             };
 
             /*TODO 这里调后端返回 imgsrc*/
-            //eel.你的函数(UserDateImage)
+            addPanorama(UserDataImgnameImgsrcDesc);
         };
 
         files_saver.push(file.name);
