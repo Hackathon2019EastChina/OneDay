@@ -36,6 +36,7 @@ class CALENDAR {
         if (!this.options.id) return false;
         this.eventsTrigger();
         this.drawAll();
+        this.getUserName();
     }
 
     // ------!!!获得用户名信息------
@@ -152,7 +153,28 @@ class CALENDAR {
             let aYear = day.year.toString();
             let dayFormat = aDay + '/' + aMonth + '/' + aYear;
             //Todo: ------！！！根据this.userName和具体日期dayFormat调用函数返回 来判断是否有Event, 返回到day.hasEvent------
-            // day.hasEvent;
+
+            let user_temp = this.userName;
+            let date_temp = aDay + '/' + aMonth + '/' + aYear;   // 2/6/2019
+            let data_arr = date_temp.split("/");
+            //处理用户名字段
+            let user_info = user_temp;
+            //处理日期字段
+            if(data_arr[0].length === 1){
+                data_arr[0] = "0" + data_arr[0];
+            }
+            if(data_arr[1].length === 1){
+                data_arr[1] = "0" + data_arr[1];
+            }
+            let date_info = data_arr[2] + "-" + data_arr[1] + "-" + data_arr[0];
+            let UserDate = {
+                user: user_info,
+                date: date_info
+            };
+            /*TODO 这里调后端返回 imgsrc 和 labels*/
+
+            // day.hasEvent = eel.你的函数(UserDate);
+            //------------------------
             daysTemplate += `<li class="${day.currentMonth ? '' : 'another-month'}${day.today ? ' active-day ' : ''}${day.selected ? 'selected-day' : ''}${day.hasEvent ? ' event-day' : ''}" data-day="${day.dayNumber}" data-month="${day.month}" data-year="${day.year}"></li>`
         });
 
@@ -221,17 +243,20 @@ class CALENDAR {
 
 
         this.elements.eventAddBtn.addEventListener('click', e => {     //!!!添加图像，改成上传图像操作
-            let fieldValue = this.elements.eventField.value;
-            if (!fieldValue) return false;
-            let dateFormatted = this.getFormattedDate(new Date(this.date));
-            //Todo 通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
-            // ---从这里开始
-            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
-            this.eventList[dateFormatted].push(fieldValue);
-            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
-            // ---到这里结束 全部注释掉
-            this.elements.eventField.value = '';
-            this.drawAll()
+            addEvent(document.getElementById('img_input'));
+//            let fieldValue = this.elements.eventField.value;
+//            if (!fieldValue) return false;
+//            let dateFormatted = this.getFormattedDate(new Date(this.date));
+//
+//            //Todo 通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
+//            UploadHandle(document.getElementById('img_input'), username, dateFormatted); //???
+//            // ---从这里开始
+////            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
+////            this.eventList[dateFormatted].push(fieldValue);
+////            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
+//            // ---到这里结束 全部注释掉
+//            this.elements.eventField.value = '';
+//            this.drawAll()
         });
 
         this.elements.eventDeleteBtn.addEventListener('click', e => {
@@ -305,11 +330,54 @@ class CALENDAR {
     getFirstElementInsideIdByClassName(className) {
         return document.getElementById(this.options.id).getElementsByClassName(className)[0];
     }
+
+//    addEvent(fileDOM){
+//        console.log("OK!!!!!");
+//
+//
+//        let fieldValue = this.elements.eventField.value;
+//        if (!fieldValue) return false;
+//        let dateFormatted = this.getFormattedDate(new Date(this.date));
+//
+//        //NothingTodo: 通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
+//        UploadHandle(fileDOM, username, dateFormatted); //???
+//        // ---从这里开始
+////            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
+////            this.eventList[dateFormatted].push(fieldValue);
+////            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
+//        // ---到这里结束 全部注释掉
+//        this.elements.eventField.value = '';
+//        this.drawAll()
+//    }
+
 }
 
 
-(function () {
-    new CALENDAR({
+let calendar = new CALENDAR({
         id: "calendar"
-    })
-})();
+});
+
+
+function add(fileDOM){
+    console.log(calendar);
+    let fieldValue = calendar.elements.eventField.value;
+    if (!fieldValue) return false;
+    let dateFormatted = calendar.getFormattedDate(new Date(calendar.date));
+
+    //Todo 通过 dateFormatted 和 用户信息（this.userName） 调用 UploadHandle(this); 函数将图片传到后端
+
+    UploadHandle(fileDOM, calendar.userName, dateFormatted);
+    // ---从这里开始
+//            if (!this.eventList[dateFormatted]) this.eventList[dateFormatted] = [];
+//            this.eventList[dateFormatted].push(fieldValue);
+//            localStorage.setItem(localStorageName, JSON.stringify(this.eventList));
+    // ---到这里结束 全部注释掉
+    this.elements.eventField.value = '';
+    this.drawAll()
+}
+
+//(function () {
+//    new CALENDAR({
+//        id: "calendar"
+//    })
+//})();

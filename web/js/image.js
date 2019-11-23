@@ -1,7 +1,9 @@
 let files_saver = [];
 
-function UploadHandle(fileDOM) {
+function UploadHandle(fileDOM, username, dateFormatted) {
     files_saver = [];
+
+//    console.log("test SUCCEED! "+username+dateFormatted); //test
 
     if(!window.FileReader){
         alert("您的浏览器不支持图片预览功能, 如需该功能请升级您的浏览器!");
@@ -9,7 +11,7 @@ function UploadHandle(fileDOM) {
     }
 
     //把上传的图片存到后端
-    SendImage();
+    SendImage(username, dateFormatted);
 }
 
 /**
@@ -19,11 +21,11 @@ function UploadHandle(fileDOM) {
  * imgname: test1.png
  * imgsrc: [Base64编码的图片]
  */
-function SendImage() {
+function SendImage(username, dateFormatted) {
     let imageType = /^image\//;
 
-    let user_temp = "doubleZ";
-    let date_temp = "2/6/2019";   // 2/6/2019
+    let user_temp = username; // "doubleZ";
+    let date_temp = dateFormatted;   // "2/6/2019"
     let data_arr = date_temp.split("/");
 
     //处理用户名字段

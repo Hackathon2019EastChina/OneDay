@@ -243,3 +243,11 @@ a.scene-item:hover{
 /* .current-day-events-list li{
     display: inline-block;
 } */
+#img_input{
+    visibility: visible;
+    width: 60px;
+    height: 15px;
+    outline-style: none ;
+    border: 0px;
+    background-color: rgba(255,255,255,.3);
+}
