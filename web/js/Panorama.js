@@ -12,22 +12,22 @@ window.onload = function () {
 
 async function loadPanorama() {
     let UserDate = {
-        user: "tj",
-        date: "2019-06-02"
+        user: user_info,
+        date: date_info
     };
 
-
-    /*TODO 这里调后端返回 imgsrc 和 labels*/
     //读取数据
-    var ImgsrcLabels = await readPanorama(UserDate)
+    let ImgsrcLabels = await readPanorama(UserDate);
     console.log(ImgsrcLabels);
-    var labels_arr = [];
+
+    let labels_arr = [];
     for(let lable in ImgsrcLabels.label){
         labels_arr.push(eval('(' + ImgsrcLabels.label[lable]+ ')'));
     }
-    console.log(labels_arr)
+    console.log(labels_arr);
+
     let url_str = 'img/' + ImgsrcLabels.path;
-    //console.log(url_str);
+    console.log(url_str);
 
     opt = {
         container:'panoramaConianer',//容器
@@ -48,5 +48,3 @@ async function loadPanorama() {
     tp = new tpanorama(opt);
     tp.init();
 }
-
-//})

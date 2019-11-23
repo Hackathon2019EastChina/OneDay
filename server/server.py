@@ -78,6 +78,10 @@ def read_panorama(UserDate):
     # 读取数据
     c.execute("SELECT description, path FROM panorama WHERE user_name = \'" + UserDate["user"] + "\'" + "AND date = \'" +UserDate["date"] + "\'")
     result2 = c.fetchone()
+
+    print(result1)
+    print(result2)
+
     result = {'path': result2[1], 'description': result2[0], 'label': result1}
     c.close()
     return result
