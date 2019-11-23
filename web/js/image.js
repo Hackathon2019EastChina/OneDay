@@ -1,6 +1,9 @@
 let files_saver = [];
 
 function UploadHandle(fileDOM) {
+    console.log(fileDOM);
+    console.log(fileDOM.files);
+
     files_saver = [];
 
     if(!window.FileReader){
@@ -9,7 +12,7 @@ function UploadHandle(fileDOM) {
     }
 
     //把上传的图片存到后端
-    SendImage();
+    SendImage(fileDOM);
 }
 
 /**
@@ -19,7 +22,7 @@ function UploadHandle(fileDOM) {
  * imgname: test1.png
  * imgsrc: [Base64编码的图片]
  */
-function SendImage() {
+function SendImage(fileDOM) {
     let imageType = /^image\//;
 
     let user_temp = "doubleZ";
