@@ -81,27 +81,56 @@ def read_panorama(UserDate):
     return result
 
 
-@eel.expose
-def add_panorama(UserDateImgnameImgsrcDesc):
-    newpath = UserDateImgnameImgsrcDesc['user']+"/"+UserDateImgnameImgsrcDesc['date']
-    mkdir(newpath)
-    imgdata = base64.b64decode(UserDateImgnameImgsrcDesc["imgsrc"])
-    file = open("../web/img/"+newpath+"/"+ UserDateImgnameImgsrcDesc['date'] + "."+ UserDateImgnameImgsrcDesc['imgname']
-                .split('.')[1] , 'wb')
-    file.write(imgdata)
-    file.close()
-
+def add_panorama_db(UserDateImgnameImgsrcDescLengthIndex):
     conn = sqlite3.connect("../db/OneDay.db")
     # 创建游标
     c = conn.cursor()
-    # 插入UserDataImgnameImgsrc
-    c.execute("INSERT INTO panorama (user_name,date,path,description) VALUES (?,?,?,?)",
-              (UserDateImgnameImgsrcDesc["user"], UserDateImgnameImgsrcDesc["date"], newpath+"/"+
-               UserDateImgnameImgsrcDesc['date'] + "."+ UserDateImgnameImgsrcDesc['imgname'].split('.')[1], UserDateImgnameImgsrcDesc["description"]))
+    c.execute("SELECT EXISTS(SELECT user_name FROM panorama WHERE user_name= \'"+
+              UserDateImgnameImgsrcDescLengthIndex["username"]+"\' AND date= \'"
+              + UserDateImgnameImgsrcDescLengthIndex["dtae"] + "\')")
+    if c.fetchone():
+        # 创建游标
+        c = conn.cursor()
+        c.execute("UPDATE panorama SET description=\'"+UserDateImgnameImgsrcDescLengthIndex["description"]+
+                  "\' WHERE user_name= \'"+ UserDateImgnameImgsrcDescLengthIndex["username"]+"\' AND date= \'"
+              + UserDateImgnameImgsrcDescLengthIndex["dtae"] + "\'")
+    else:
+        # 创建游标
+        c = conn.cursor()
+        c.execute("INSERT INTO panorama (user_name,date,path,description) VALUES (?,?,?,?)",
+                  (UserDateImgnameImgsrcDescLengthIndex["user"], UserDateImgnameImgsrcDescLengthIndex["date"],
+                   UserDateImgnameImgsrcDescLengthIndex['user']+"/"+UserDateImgnameImgsrcDescLengthIndex['date'] + "/" + UserDateImgnameImgsrcDescLengthIndex['date'] + "." +
+                   UserDateImgnameImgsrcDescLengthIndex['imgname'].split('.')[1],
+                   UserDateImgnameImgsrcDescLengthIndex["description"]))
     # 提交事务
     conn.commit()
     # 关闭连接
     conn.close()
+
+
+@eel.expose
+def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
+    if int(UserDateImgnameImgsrcDescLengthIndex["index"]) == 0:
+        add_panorama_db(UserDateImgnameImgsrcDescLengthIndex)
+
+    flag = False
+    newpath = UserDateImgnameImgsrcDescLengthIndex['user']+"/"+UserDateImgnameImgsrcDescLengthIndex['date']
+    allpath = "../web/img/" + newpath
+    imgdata = base64.b64decode(UserDateImgnameImgsrcDescLengthIndex["imgsrc"])
+    if int(UserDateImgnameImgsrcDescLengthIndex["index"]) == 0:
+        if os.path.exists(allpath):
+            os.rmdir(allpath)
+        mkdir(newpath)
+    elif int(UserDateImgnameImgsrcDescLengthIndex["index"]) == int(UserDateImgnameImgsrcDescLengthIndex["length"])-1:
+        flag = True
+    file = open("../web/img/"+newpath+"/"+ UserDateImgnameImgsrcDescLengthIndex['date'] + "."+ UserDateImgnameImgsrcDescLengthIndex['imgname']
+                .split('.')[1] , 'wb')
+    file.write(imgdata)
+    file.close()
+
+    # TODO 多张图片的全景拼接
+    ###################
+
 
 
 @eel.expose
