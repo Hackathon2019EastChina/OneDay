@@ -20,7 +20,7 @@ async function loadPanorama() {
     /*TODO 这里调后端返回 imgsrc 和 labels*/
     //读取数据
     var ImgsrcLabels = await readPanorama(UserDate)
-    console.log(ImgsrcLabels)
+    console.log(ImgsrcLabels);
     var labels_arr = [];
     for(let lable in ImgsrcLabels.label){
         labels_arr.push(eval('(' + ImgsrcLabels.label[lable]+ ')'));

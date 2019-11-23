@@ -18,7 +18,7 @@
             width: auto;
             height: auto;
             z-index: -9999;
-            /* -webkit-filter: grayscale(100%);    /*灰度*/
+            /* -webkit-filter: grayscale(100%);    !*灰度*/
         }
 
         #title{
@@ -37,8 +37,9 @@
 </head>
 <body>
 
+
     <video id="myvideo" autoplay muted style="width: 100%;">
-        <source src="Resources/video.mp4">
+        <source src="video/leaves.mp4">
     </video>
 
     <div id="title">
@@ -48,6 +49,6 @@
 </body>
 <script>
         let video = document.getElementById('myvideo');
-        video.playbackRate = 0.5;       //播放速率
+        // video.playbackRate = 0.5;       //播放速率
 </script>
 </html>

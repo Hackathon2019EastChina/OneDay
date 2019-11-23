@@ -13,7 +13,7 @@ import eel
 import os, base64
 from base64 import b64decode
 import sqlite3
-from server.FullView import *
+from FullView import *
 
 
 dirname = '../web/img/'
@@ -140,7 +140,7 @@ def login(UserPwd):
 
 
 if __name__ == '__main__':
-    eel.start('homepage.html')
+    eel.start('index.html')
 
 
 
