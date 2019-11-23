@@ -1,5 +1,5 @@
 const AVAILABLE_WEEK_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const localStorageName = 'calendar-events';   // ----！！！-------
+const localStorageName = 'user-name';   // ----！！！-------
 let userName_ = 'stern';   // ----！！！-------
 //!!!!! 时间格式：day/month/year , month范围[0,11]
 
@@ -24,7 +24,7 @@ class CALENDAR {
         };  // html blocks
 
         // 这一项要被删掉
-        this.eventList = JSON.parse(localStorage.getItem(localStorageName)) || {};   // ------！！！要返回一个按照LocolStorage里格式一样的eventList------
+        //this.eventList = JSON.parse(localStorage.getItem(localStorageName)) || {};   // ------！！！要返回一个按照LocolStorage里格式一样的eventList------
 
         this.date = +new Date();
         this.options.maxDays = 37;
@@ -41,7 +41,8 @@ class CALENDAR {
 
     // ------!!!获得用户名信息------
     getUserName() {
-        this.userName = userName_;
+        this.userName = localStorage.getItem(localStorageName);
+        console.log(this.userName);
     }
 
     // draw Methods
@@ -171,7 +172,9 @@ class CALENDAR {
         days = days.map(day => {
             let newDayParams = day;
             let formatted = this.getFormattedDate(new Date(`${Number(day.month) + 1}/${day.dayNumber}/${day.year}`));
-            newDayParams.hasEvent = this.eventList[formatted];
+            //Todo: newDayParams.hasEvent的作用有待商榷！！！
+            //newDayParams.hasEvent = this.eventList[formatted];
+
             return newDayParams;
         });
 

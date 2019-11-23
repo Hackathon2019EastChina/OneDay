@@ -1,3 +1,5 @@
+const localStorageName = 'user-name';
+
 const signUpButton = document.getElementById('signUp');
 const accountSignUpButton = document.getElementById('accountSignUp');
 const signInButton = document.getElementById('signIn');
@@ -37,6 +39,7 @@ accountSignInButton.addEventListener('click', () => {
     if(pass) {
         const hiddenTextForSuccess = document.getElementById('success-sign-in');
         hiddenTextForSuccess.className = 'show';
+        localStorage.setItem(localStorageName, name);
         // window.location.href="incex.html";
         window.location.href="calendar.html";
 //        setTimeout("window.location.href=\"calendar.html\" ",300);
