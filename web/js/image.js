@@ -46,7 +46,8 @@ function SendImage(fileDOM) {
     let desp_info = "this is a description";
 
 
-    for(let i=0;i<fileDOM.files.length;++i){
+    let filesnum = fileDOM.files.length;
+    for(let i=0;i<filesnum;++i){
 
         let file = fileDOM.files[i];
         let reader = new FileReader();
@@ -64,7 +65,9 @@ function SendImage(fileDOM) {
                 date: date_info,            //2019-01-01
                 description: desp_info,
                 imgname: file.name,
-                imgsrc: img_base64
+                imgsrc: img_base64,
+                length: filesnum,
+                index: i
             };
 
             addPanorama(UserDataImgnameImgsrcDesc)
