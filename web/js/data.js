@@ -1,10 +1,15 @@
-function writeDB(writeData) {
-    eel.write_db(writeData);
+function addTag(UserDateLabel) {
+    eel.add_tag(UserDateLabel);
 }
 
-async function readDB(userName) {
-    let readData = eel.read_db(userName)()
-    return readData;
+async function readPanorama(UserData) {
+    let readPanoramaData = eel.read_panorama(UserData)()
+    return readPanoramaData;
+}
+
+
+function addPanorama(UserDataImgnameImgsrcDesc){
+    eel.add_panorama(UserDataImgnameImgsrcDesc)
 }
 
 
