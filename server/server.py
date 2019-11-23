@@ -86,6 +86,19 @@ def read_panorama(UserDate):
     c.close()
     return result
 
+@eel.expose
+def init_calendar(UserDate):
+    conn = sqlite3.connect("../db/OneDay.db")
+    # 创建游标
+    c = conn.cursor()
+    # 读取数据
+    c.execute("SELECT description, path FROM panorama WHERE user_name = \'" + UserDate["user"] + "\'" + "AND date = \'" +UserDate["date"] + "\'")
+    state = {'state': False}
+    if not c.fetchone():
+        return state
+    else:
+        state['state'] = True
+        return state
 
 def add_panorama_db(UserDateImgnameImgsrcDescLengthIndex):
     conn = sqlite3.connect("../db/OneDay.db")
