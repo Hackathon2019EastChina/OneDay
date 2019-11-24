@@ -6,16 +6,18 @@ Table of Contents
 =================
 
    * [OneDay](#oneday)
-     * [Innovation](#innovation)
-     * [ScreenShots](#screenshots)
-       * [Index](#index)
-       * [Login/Register](#loginregister)
-       * [Calendar](#calendar)
-       * [Panorama](#panorama)
-     * [Features](#features)
-       * [User](#user)
-       * [Administrator](#administrator)
-     * [Abort the author](#abort-the-author)
+      * [Innovation](#innovation)
+      * [ScreenShots](#screenshots)
+         * [Index](#index)
+         * [Login/Register](#loginregister)
+         * [Calendar](#calendar)
+         * [Panorama](#panorama)
+      * [Features](#features)
+         * [User](#user)
+         * [Administrator](#administrator)
+      * [Development Environment](#development-environment)
+      * [How to Run](#how-to-run)
+      * [Abort the author](#abort-the-author)
 
 -----
 
@@ -67,6 +69,30 @@ OneDay —— 尝试从全新视角发现身边的美
 
 - 管理上传图片
 - 管理用户
+
+------
+
+## Development Environment
+
+- **IDE:** Visual Studio Code 1.40.1
+- **Languages:** 
+  - python
+  - HTML5
+  - CSS3
+  - JavaScript
+- **Dependences:** 
+  - eel
+  - sqlite3
+  - cv2
+  - numpy
+
+------
+
+## How to Run
+
+1. 运行`server/server.py`
+2. 浏览器访问`localhost/index.html`
+3. 根据功能介绍运行OneDay全景图像网站
 
 ------
 
