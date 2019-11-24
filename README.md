@@ -6,6 +6,7 @@ Table of Contents
 =================
 
    * [OneDay](#oneday)
+   * [Table of Contents](#table-of-contents)
       * [Innovation](#innovation)
       * [ScreenShots](#screenshots)
          * [Index](#index)
@@ -17,7 +18,8 @@ Table of Contents
          * [Administrator](#administrator)
       * [Development Environment](#development-environment)
       * [How to Run](#how-to-run)
-      * [Abort the author](#abort-the-author)
+      * [Project Structure](#project-structure)
+      * [About the author](#about-the-author)
 
 -----
 
@@ -96,7 +98,64 @@ OneDay —— 尝试从全新视角发现身边的美
 
 ------
 
-## Abort the author
+## Project Structure
+
+```
+.
+├── README.md
+├── db
+│   ├── OneDay.db
+│   └── createDB.py
+├── doc
+│   └── OneDay_简要项目计划文档.pdf
+├── server
+│   ├── FullView.py
+│   ├── __pycache__
+│   │   ├── FullView.cpython-37.pyc
+│   │   └── server.cpython-37.pyc
+│   └── server.py
+└── web
+    ├── calendar.html
+    ├── css
+    │   ├── all.css
+    │   ├── font-awesome.min.css
+    │   ├── login.css
+    │   └── style.css
+    ├── homepage.html
+    ├── img
+    │   ├── bg.jpg
+    │   └── tongji
+    │       ├── 2019-10-21
+    │       │   └── 2019-10-21.jpg
+    │       ├── 2019-10-22
+    │       │   └── 2019-10-22.jpg
+    │       ├── 2019-10-23
+    │       │   └── 2019-10-23.jpg
+    │       └── 2019-10-24
+    │           ├── 0.jpeg
+    │           ├── 0_1.jpeg
+    │           ├── 1.jpeg
+    │           ├── 2.jpeg
+    │           └── 2019-10-24.jpeg
+    ├── index.html
+    ├── js
+    │   ├── Panorama.js
+    │   ├── all.js
+    │   ├── data.js
+    │   ├── href.js
+    │   ├── image.js
+    │   ├── login.js
+    │   ├── three.js
+    │   └── tpanorama.js
+    ├── login.html
+    ├── panorama.html
+    └── video
+        └── leaves.mp4
+```
+
+------
+
+## About the author
 
 Tongji University
 
