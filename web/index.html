@@ -22,15 +22,30 @@
         }
 
         #title{
+            font-size: 100px;
             text-align: center;
             background-color: #fff;
             border-radius: 20px;
-            width: 300px;
-            height: 100px;
+            width: 400px;
+            height: 200px;
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%,-50%);
+
+            -webkit-transition: all 3s;
+            -moz-transition: all 3s;
+            -ms-transition: all 3s;
+            -o-transition: all 3s;
+            transition: all 3s;
+        }
+
+        .origin{
+            opacity: 0;
+        }
+
+        .result{
+            opacity: 50%;
         }
     </style>
 
@@ -42,13 +57,18 @@
         <source src="video/leaves.mp4">
     </video>
 
-    <div id="title">
+    <div class="origin" id="title">
         <p>One Day</p>
     </div>
 
 </body>
 <script>
         let video = document.getElementById('myvideo');
-        // video.playbackRate = 0.5;       //播放速率
+        video.addEventListener('ended', function(){
+            document.getElementById('title').className = "result";
+        });
+        video.playbackRate = 1.5;       //播放速率
+
+        //
 </script>
 </html>
