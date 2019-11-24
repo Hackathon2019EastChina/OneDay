@@ -161,6 +161,8 @@ def add_panorama(UserDateImgnameImgsrcDescLengthIndex):
         full_view_imgname = get_full_view_image(filenames, allpath)
 
         os.rename(allpath + full_view_imgname, allpath + UserDateImgnameImgsrcDescLengthIndex["date"] + appidx)
+    if int(UserDateImgnameImgsrcDescLengthIndex["length"])==1:
+        os.rename(allpath + "0"+ appidx, allpath + UserDateImgnameImgsrcDescLengthIndex["date"] + appidx)
 
 
     ###################
