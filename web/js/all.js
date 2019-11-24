@@ -60,7 +60,7 @@ class CALENDAR {
     async drawEvents() {
         let calendar = this.getCalendar();
         let judge = false;
-        let eventList = ['There is not any scenes.'];
+        let eventList = ['记录你的生活'];
 //        // ------!!!通过calendar.active.formatted（时间）调用函数返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp-------
 //        //
        let user_temp = userName; // "doubleZ";
@@ -119,8 +119,7 @@ class CALENDAR {
         } else {
             eventList.forEach(item => {
                 // eventTemplate += `<li>${item}</li>`;
-
-                console.log("fail to get event");
+                // console.log("fail to get event");
                 eventTemplate = `<li>${item}</li>`;
             });
         }
