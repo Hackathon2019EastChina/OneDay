@@ -168,7 +168,7 @@ OneDay —— 尝试从全新视角发现身边的美
 
 ## About the author
 
-Tongji University
+Tongji University: 知道伐队
 
 | Name                  | Email                |
 | --------------------- | -------------------- |
