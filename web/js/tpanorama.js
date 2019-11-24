@@ -205,8 +205,8 @@
         console.log('屏幕位置: ', x.toFixed(2), y.toFixed(2));
 
         var l = {position:{lon:x,lat:y},logoUrl:'',text:text};
-        var writeData = {userName:"tj", label: l};
-        writeDB(writeData);
+        // var writeData = {userName:"tj", label: l};
+        // writeDB(writeData);
         opt.lables.push(l);
         tp.clean();
         tp.config(opt);
