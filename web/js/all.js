@@ -59,7 +59,7 @@ class CALENDAR {
     // add the Events in the left block (will be changed into images)   !!!
     async drawEvents() {
         let calendar = this.getCalendar();
-        let judge = true;  //false;
+        let judge = false;
         let eventList = ['There is not any scenes.'];
 //        // ------!!!通过calendar.active.formatted（时间）调用函数返回当日的Event（以数组的形式，外面加一个[]），存入eventTemp-------
 //        //
@@ -119,6 +119,8 @@ class CALENDAR {
         } else {
             eventList.forEach(item => {
                 // eventTemplate += `<li>${item}</li>`;
+
+                console.log("fail to get event");
                 eventTemplate = `<li>${item}</li>`;
             });
         }
@@ -179,10 +181,13 @@ class CALENDAR {
             let formatted = this.getFormattedDate(new Date(`${Number(day.month) + 1}/${day.dayNumber}/${day.year}`));
             //Todo: newDayParams.hasEvent的作用有待商榷！！！
             //newDayParams.hasEvent = this.eventList[formatted];
+            newDayParams.hasEvent = false;
 
             return newDayParams;
         });
 
+        console.log(days);
+        daysTemplate = "";
 
         days.forEach(async day => {
             let aDay = day.dayNumber.toString();
@@ -249,8 +254,11 @@ class CALENDAR {
     eventsTrigger() {
         this.elements.prevYear.addEventListener('click', e => {
             let calendar = this.getCalendar();
+
+            console.log(calendar.pYear);
             this.updateTime(calendar.pYear);
             this.drawAll()
+
         });
 
         this.elements.nextYear.addEventListener('click', e => {
@@ -335,6 +343,7 @@ class CALENDAR {
 
     updateTime(time) {
         this.date = +new Date(time);
+        console.log(this.date);
     }
 
     // 返回一个[active{}, pMonth, nMonth, pYear, nYear] 当前时间、前一个月、后一个月、前一年、后一年

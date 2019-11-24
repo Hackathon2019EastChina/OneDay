@@ -8,6 +8,7 @@
     <style>
         body{
             margin: 0;
+            background-color: rgb(9,9,9);
         }
         video{
             position: fixed;
@@ -17,20 +18,30 @@
             min-height: 100%;
             width: auto;
             height: auto;
-            z-index: -9999;
+            z-index: 0;
             /* -webkit-filter: grayscale(100%);    !*灰度*/
         }
 
         #title{
             text-align: center;
-            background-color: #fff;
+            /*background-color: #fff;*/
             border-radius: 20px;
             width: 300px;
             height: 100px;
+            font-size: 40px;
+            color: white;
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%,-50%);
+            opacity: 0;
+            transition: opacity .3s linear;
+            z-index: -1;
+        }
+
+        #title.show{
+            opacity: 1;
+            z-index: 1;
         }
     </style>
 
@@ -49,6 +60,15 @@
 </body>
 <script>
         let video = document.getElementById('myvideo');
+        let title = document.getElementById('title');
         // video.playbackRate = 0.5;       //播放速率
+
+        video.onclick=function(){
+            let classVal = title.classList.add("show");
+        }
+
+        title.onclick=function(){
+            setTimeout("window.location.href=\"login.html\" ",1000);
+        }
 </script>
 </html>
