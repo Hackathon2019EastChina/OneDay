@@ -26,8 +26,8 @@
             text-align: center;
             /*background-color: #fff;*/
             border-radius: 20px;
-            width: 400px;
-            height: 200px;
+            width: 260px;
+            height: 150px;
             font-size: 40px;
             color: white;
             position: absolute;
@@ -39,11 +39,15 @@
             z-index: -1;
 
 
-            -webkit-transition: all 3s;
-            -moz-transition: all 3s;
-            -ms-transition: all 3s;
-            -o-transition: all 3s;
-            transition: all 3s;
+            -webkit-transition: all 1s;
+            -moz-transition: all 1s;
+            -ms-transition: all 1s;
+            -o-transition: all 1s;
+            transition: all 1s;
+        }
+
+        #title:hover{
+            box-shadow: 0 0 6px #dcdcdc;
         }
 
         #title.show{
@@ -51,13 +55,14 @@
             z-index: 1;
         }
 
-        .origin{
+        /*.origin{
             opacity: 0;
         }
 
         .result{
             opacity: 50%;
-        }
+            z-index: 1;
+        }*/
     </style>
 
 </head>
@@ -79,14 +84,16 @@
         // video.playbackRate = 0.5;       //播放速率
 
         video.onclick=function(){
-            let classVal = title.classList.add("show");
+            title.classList.add("show");
         }
 
         title.onclick=function(){
             setTimeout("window.location.href=\"login.html\" ",1000);
         }
         video.addEventListener('ended', function(){
-            document.getElementById('title').className = "result";
+            console.log("play end");
+            title.classList.add("show");
+            // document.getElementById('title').className = "result";
         });
         video.playbackRate = 1.5;       //播放速率
 
