@@ -25,7 +25,7 @@ Table of Contents
 
 ## :sparkles:DEMO
 
-‼️ 请务必观看demo视频，辛苦您了～‼️ 
+:triangular_flag_on_post: :triangular_flag_on_post:请务必观看demo视频，辛苦您了～:triangular_flag_on_post::triangular_flag_on_post:
 
 - [web端演示视频](https://pan.baidu.com/s/1oqb6vhalBmyekfr4tj2isQ)
 - [mobile端演示视频](https://pan.baidu.com/s/1k2TOpsgU5quUAa-mohLVbA)
